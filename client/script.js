@@ -18,12 +18,15 @@ function typeText(element, text) {
   let index = 0;
   let interval = setInterval(() => {
     if (index < text.length) {
-      element.innetHTML += text.charAt(index);
+      element.innerHTML += text.charAt(index);
       index++;
     } else clearInterval(interval);
   }, 20);
 }
 
+// generate unique ID for each message div of bot
+// necessary for typing text effect for that specific reply
+// without unique ID, typing text will work on every element
 function generateUniqueId() {
   const timestamp = Date.now(),
     randomNumber = Math.random();
@@ -36,7 +39,7 @@ function chatStripe(isAi, value, uniqueId) {
   <div class="wrapper ${isAi && 'ai'}">
     <div class="chat">
       <div class="profile">
-        <img src="${isAi ? bot : user}" alt="${isAi ? 'bot' : 'user'}" />
+        <img src=${isAi ? bot : user} alt="${isAi ? 'bot' : 'user'}" />
       </div>
       <div class="message" id=${uniqueId}>${value}</div>
     </div>
@@ -49,17 +52,49 @@ const handleSubmit = async (e) => {
 
   const data = new FormData(form);
 
-  // users chatstripe
+  // user's chatstripe
   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+
+  // to clear the textarea input
   form.reset();
 
-  // bots chatstripe
+  // bot's chatstripe
   const uniqueId = generateUniqueId();
   chatContainer.innerHTML += chatStripe(true, ' ', uniqueId);
 
+  // to focus scroll to the bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // specific message div
   const messageDiv = document.getElementById(uniqueId);
+
+  // messageDiv.innerHTML = "..."
   loader(messageDiv);
+
+  const response = await fetch('https://codex-im0y.onrender.com/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      prompt: data.get('prompt'),
+    }),
+  });
+
+  clearInterval(loadInterval);
+  messageDiv.innerHTML = ' ';
+
+  if (response.ok) {
+    const data = await response.json();
+    const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
+
+    typeText(messageDiv, parsedData);
+  } else {
+    const err = await response.text();
+
+    messageDiv.innerHTML = 'Something went wrong';
+    alert(err);
+  }
 };
 
 form.addEventListener('submit', handleSubmit);
