@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', async (req, res) => {
-  res.status(200).send({ message: 'Hello from Codex' });
+  res.status(200).send({ message: 'Hello from CodeX!', });
 });
 
 app.post('/', async (req, res) => {
@@ -31,11 +31,12 @@ app.post('/', async (req, res) => {
       frequency_penalty: 0.5, // Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
       presence_penalty: 0, // Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
     });
-    res.status(200).send({ bot: response.data.choices[0].text });
+
+    res.status(200).send({ bot: response.data.choices[0].text, });
   } catch (error) {
     console.error(error);
     res.status(500).send(error || 'Something went wrong');
   }
 });
 
-app.listen(5000, () => console.log('AI server started on http://localhost:5000'));
+app.listen(5000, () => console.log('AI server started...'));
