@@ -39,4 +39,4 @@ app.post('/', async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log('AI server started...'));
+app.listen(5005, () => console.log('AI server started...'));
