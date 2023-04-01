@@ -73,12 +73,8 @@ const handleSubmit = async (e) => {
 
   const response = await fetch('https://codex-im0y.onrender.com/', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      prompt: data.get('prompt'),
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt: data.get('prompt') }),
   });
 
   clearInterval(loadInterval);
@@ -87,11 +83,9 @@ const handleSubmit = async (e) => {
   if (response.ok) {
     const data = await response.json();
     const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
-
     typeText(messageDiv, parsedData);
   } else {
     const err = await response.text();
-
     messageDiv.innerHTML = 'Something went wrong';
     alert(err);
   }
