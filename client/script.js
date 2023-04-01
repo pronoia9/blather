@@ -23,3 +23,9 @@ function typeText(element, text) {
     } else clearInterval(interval);
   }, 20);
 }
+
+function generateUniqueId() {
+  const timestamp = Date.now(), randomNumber = Math.random();
+  const hexadecimalString = randomNumber.toString(16);
+  return `id-${timestamp}-${hexadecimalString}`;
+}
