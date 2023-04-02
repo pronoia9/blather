@@ -10,7 +10,7 @@ function loader(element) {
   element.textContent = '';
 
   loadInterval = setInterval(() => {
-    element.textContent !== '...' ? (element.textContent += '.') : (element.textContent = '');
+    element.textContent !== '...' ? (element.textContent += '.') : (element.textContent = ' ');
   }, 300);
 }
 
@@ -28,23 +28,9 @@ function typeText(element, text) {
 // necessary for typing text effect for that specific reply
 // without unique ID, typing text will work on every element
 function generateUniqueId() {
-  const timestamp = Date.now(),
-    randomNumber = Math.random();
+  const timestamp = Date.now(), randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
   return `id-${timestamp}-${hexadecimalString}`;
-}
-
-function chatStripe(isAi, value, uniqueId) {
-  return `
-  <div class="wrapper ${isAi && 'ai'}">
-    <div class="chat">
-      <div class="profile">
-        <img src=${isAi ? bot : user} alt="${isAi ? 'bot' : 'user'}" />
-      </div>
-      <div class="message" id=${uniqueId}>${value}</div>
-    </div>
-  </div>
-  `;
 }
 
 const handleSubmit = async (e) => {
@@ -53,17 +39,19 @@ const handleSubmit = async (e) => {
   const data = new FormData(form);
 
   // user's chatstripe
-  chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+  chatContainer.innerHTML += `<div class='message message-personal'>${data.get('prompt')}</div>`;
 
   // to clear the textarea input
   form.reset();
 
   // bot's chatstripe
   const uniqueId = generateUniqueId();
-  chatContainer.innerHTML += chatStripe(true, ' ', uniqueId);
+  chatContainer.innerHTML += `<div class='message message-ai'><img class='avatar' src=${bot} /><span id=${uniqueId}>${' '}</span></div>`;
 
   // to focus scroll to the bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
+  console.log(chatContainer.scrollTop);
+  console.log(chatContainer.scrollHeight);
 
   // specific message div
   const messageDiv = document.getElementById(uniqueId);
