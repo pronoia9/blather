@@ -90,10 +90,10 @@ Messages
   align-items: flex-start;
   gap: 10px;
   flex: 1;
-  max-width: 100%;
   overflow-x: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none; */
+  max-width: 60%;
   color: #dcdcdc;
   clear: both;
   float: left;
