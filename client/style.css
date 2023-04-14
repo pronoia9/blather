@@ -385,6 +385,7 @@ textarea {
   border-radius: 3px;
   color: var(--colors-tertiary--500);
   padding: 0.75rem;
+
 }
 
 .message__footer {
@@ -395,12 +396,12 @@ textarea {
 }
 
 .message-ai .message__body {
-  border: 1px solid var(--colors-secondary--500);
-  color: var(--colors-secondary--500);
+  border: 1px solid var(--colors-active--500);
+  color: var(--colors-active--500);
 }
 
 .message-ai .message__footer {
-  color: var(--colors-secondary--500);
+  color: var(--colors-active--500);
   text-align: left;
 }
 
