@@ -24,7 +24,7 @@ const handleSubmit = async (e) => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   // specific message div
-  const messageDiv = document.getElementById(uniqueId);
+  const messageDiv = document.querySelector(`[id='${uniqueId}'] .message__body`);
   loader(messageDiv);
 
   const response = await fetch('http://localhost:5005/', {
@@ -39,7 +39,7 @@ const handleSubmit = async (e) => {
   if (response.ok) {
     const data = await response.json();
     const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
-    typeText(messageDiv, parsedData);
+    typeText(messageDiv, parsedData, uniqueId);
   } else {
     const err = await response.text();
     messageDiv.innerHTML = 'Something went wrong';
@@ -58,13 +58,17 @@ function loader(element) {
 }
 
 // AI typing text letter by letter
-function typeText(element, text) {
+function typeText(element, text, uniqueId) {
   let index = 0;
   let interval = setInterval(() => {
     if (index < text.length) {
       element.innerHTML += text.charAt(index);
       index++;
-    } else clearInterval(interval);
+    } else {
+      clearInterval(interval);
+      let timestamp = document.querySelector(`[id='${uniqueId}'] .message__authoring`);
+      timestamp.innerHTML += getDate(new Date());
+    }
   }, 10);
 }
 
@@ -80,7 +84,7 @@ function getDate(date) {
 }
 
 function message(isAi, value, uniqueId) {
-  return `<div class='message${isAi ? ' message-ai' : ''}'><div class='message__body' id=${uniqueId || generateUniqueId()}>${value}</div><div class='message__footer'><span class='message__authoring'>${!isAi ? 'An Awesome User' : 'Codex'}</span>${!isAi ? getDate(new Date()) : ''}</div></div>`;
+  return `<div class='message${isAi ? ' message-ai' : ''}' id=${uniqueId || generateUniqueId()}><div class='message__body'>${value}</div><div class='message__footer'><span class='message__authoring'>${!isAi ? 'An Awesome User' : 'Codex'}</span>${!isAi ? getDate(new Date()) : ''}</div></div>`;
 }
 
 // generate unique ID for each message div of bot necessary for typing text effect for that specific reply without unique ID, typing text will work on every element
