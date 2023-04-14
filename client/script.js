@@ -76,17 +76,16 @@ function getDate(date) {
   hours = hours ? hours : 12; // the hour '0' should be '12'
   minutes = minutes < 10 ? '0' + minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
-  return strTime;
+  return ` - ${strTime}`;
 }
 
 function message(isAi, value, uniqueId) {
-  return `<div class='message${isAi ? ' message-ai' : ''}'><div class='message__body' id=${uniqueId || generateUniqueId()}>${value}</div><div class='message__footer'><span class='message__authoring'>${!isAi ? 'An Awesome User' : 'Codex'}</span> - </div></div>`;
+  return `<div class='message${isAi ? ' message-ai' : ''}'><div class='message__body' id=${uniqueId || generateUniqueId()}>${value}</div><div class='message__footer'><span class='message__authoring'>${!isAi ? 'An Awesome User' : 'Codex'}</span>${!isAi ? getDate(new Date()) : ''}</div></div>`;
 }
 
 // generate unique ID for each message div of bot necessary for typing text effect for that specific reply without unique ID, typing text will work on every element
 function generateUniqueId() {
-  const timestamp = Date.now(),
-    randomNumber = Math.random();
+  const timestamp = Date.now(), randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
   return `id-${timestamp}-${hexadecimalString}`;
 }
