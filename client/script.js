@@ -6,45 +6,19 @@ const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
 
-// The ... loading text in AIs message while fetching response
-function loader(element) {
-  loadInterval = setInterval(() => {
-    // Update the text content of the loading indicator
-    element.textContent += '.';
-    // If the loading indicator has reached three dots, reset it
-    if (element.textContent === ' ....') element.textContent = ' ';
-  }, 300);
-}
-
-// AI typing text letter by letter
-function typeText(element, text) {
-  let index = 0;
-  let interval = setInterval(() => {
-    if (index < text.length) { element.innerHTML += text.charAt(index); index++; }
-    else clearInterval(interval);
-  }, 10);
-}
-
-// generate unique ID for each message div of bot necessary for typing text effect for that specific reply without unique ID, typing text will work on every element
-function generateUniqueId() {
-  const timestamp = Date.now(), randomNumber = Math.random();
-  const hexadecimalString = randomNumber.toString(16);
-  return `id-${timestamp}-${hexadecimalString}`;
-}
-
 const handleSubmit = async (e) => {
   e.preventDefault();
   const data = new FormData(form);
 
   // user's message
-  chatContainer.innerHTML += `<div class='message'><div class='message__body'>${data.get('message')}</div><div class='message__footer'><span class='message__authoring'>User</span> - </div></div>`;
+  chatContainer.innerHTML += message(false, data.get('message'));
 
   // to clear the textarea input
   form.reset();
 
   // bot's message
   const uniqueId = generateUniqueId();
-  chatContainer.innerHTML += `<div class='message message-ai'><div class='message__body' id=${uniqueId}>${' '}</div><div class='message__footer'><span class='message__authoring'>Codex</span> - </div></div>`;
+  chatContainer.innerHTML += message(true, ' ', uniqueId);
 
   // to focus scroll to the bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -73,10 +47,26 @@ const handleSubmit = async (e) => {
   }
 };
 
-form.addEventListener('submit', handleSubmit);
-form.addEventListener('keyup', (e) => {
-  if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
-});
+// The ... loading text in AIs message while fetching response
+function loader(element) {
+  loadInterval = setInterval(() => {
+    // Update the text content of the loading indicator
+    element.textContent += '.';
+    // If the loading indicator has reached three dots, reset it
+    if (element.textContent === ' ....') element.textContent = ' ';
+  }, 300);
+}
+
+// AI typing text letter by letter
+function typeText(element, text) {
+  let index = 0;
+  let interval = setInterval(() => {
+    if (index < text.length) {
+      element.innerHTML += text.charAt(index);
+      index++;
+    } else clearInterval(interval);
+  }, 10);
+}
 
 function getDate(date) {
   var hours = date.getHours();
@@ -88,3 +78,20 @@ function getDate(date) {
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
 }
+
+function message(isAi, value, uniqueId) {
+  return `<div class='message${isAi ? ' message-ai' : ''}'><div class='message__body' id=${uniqueId || generateUniqueId()}>${value}</div><div class='message__footer'><span class='message__authoring'>${!isAi ? 'An Awesome User' : 'Codex'}</span> - </div></div>`;
+}
+
+// generate unique ID for each message div of bot necessary for typing text effect for that specific reply without unique ID, typing text will work on every element
+function generateUniqueId() {
+  const timestamp = Date.now(),
+    randomNumber = Math.random();
+  const hexadecimalString = randomNumber.toString(16);
+  return `id-${timestamp}-${hexadecimalString}`;
+}
+
+form.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
+});
+form.addEventListener('submit', handleSubmit);
