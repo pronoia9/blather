@@ -4,26 +4,7 @@ import user from './assets/user.svg';
 const form = document.querySelector('form.channel-message-form');
 const chatContainer = document.querySelector('#chat_container');
 
-console.log(form);
-console.log(chatContainer);
-
 let loadInterval;
-
-// The . . . writing message thing for AI reply
-function loader(element) {
-  console.log('LOADER()');
-  // element.textContent = '';
-  // loadInterval = setInterval(() => {
-  //   element.textContent !== '...' ? (element.textContent += '.') : (element.textContent = ' ');
-  // }, 300);
-  element.textContent = '';
-  loadInterval = setInterval(() => {
-    // Update the text content of the loading indicator
-    element.textContent += '.';
-    // If the loading indicator has reached three dots, reset it
-    if (element.textContent === '....') element.textContent = '';
-  }, 300);
-}
 
 // AI typing text letter by letter
 function typeText(element, text) {
@@ -68,9 +49,6 @@ const handleSubmit = async (e) => {
 
   // specific message div
   const messageDiv = document.getElementById(uniqueId);
-
-  // messageDiv.innerHTML = "..."
-  // loader(messageDiv);
 
   const response = await fetch('http://localhost:5005/', {
     method: 'POST',
