@@ -34,13 +34,13 @@ const handleSubmit = async (e) => {
   const data = new FormData(form);
   console.log('data:', data);
 
-  // user's chatstripe
+  // user's message
   chatContainer.innerHTML += `<div class='message'><div class='message__body'>${data.get('message')}</div><div class='message__footer'><span class='message__authoring'>User</span> - </div></div>`;
 
   // to clear the textarea input
   form.reset();
 
-  // bot's chatstripe
+  // bot's message
   const uniqueId = generateUniqueId();
   chatContainer.innerHTML += `<div class='message message-ai'><div class='message__body' id=${uniqueId}></div><div class='message__footer'><span class='message__authoring'>Codex</span> - </div></div>`;
 
@@ -73,7 +73,7 @@ const handleSubmit = async (e) => {
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
   console.log('EVENT LISTENER (keyup)');
-  if (e.keyCode === 13) handleSubmit(e);
+  if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
 });
 
 function getDate(date) {
