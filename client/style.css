@@ -21,8 +21,8 @@ body {
   --colors-on_tertiary--500: var(--colors-bg--300);
   --colors-on_primary--500: var(--colors-primary--200);
   --colors-active--500: #2bfea0;
-  --fonts-primary: "Rajdhani", sans-serif;
-  --fonts-secondary: "VT323", monospace;
+  --fonts-primary: 'Rajdhani', sans-serif;
+  --fonts-secondary: 'VT323', monospace;
   --ui-glow: 0 0 5px var(--colors-primary--500);
   --ui-glow-borders--500: 0 0 3px var(--colors-primary--500);
   --ui-glow-color: currentcolor;
@@ -40,11 +40,7 @@ body {
   );
 
   background-color: var(--colors-bg--500);
-  background-image: radial-gradient(
-    ellipse at 33% 10%,
-    #461616 0%,
-    transparent 75%
-  );
+  background-image: radial-gradient(ellipse at 33% 10%, #461616 0%, transparent 75%);
   background-repeat: no-repeat;
   color: var(--colors-on_bg--500);
   font-family: var(--fonts-primary);
@@ -78,7 +74,7 @@ a {
   background-color: var(--colors-primary--500);
   box-shadow: var(--ui-glow);
   bottom: 0;
-  content: "";
+  content: '';
   height: 2px;
   position: absolute;
   left: 0;
@@ -100,7 +96,7 @@ a {
 .app-container {
   display: grid;
   grid-gap: 1rem;
-  grid-template-areas: "a main main main side";
+  grid-template-areas: 'a main main main side';
   grid-template-columns: 280px 1fr 1fr 1fr 1fr;
   height: calc(100% - 5.25rem);
 }
@@ -230,7 +226,7 @@ a {
 .conversation-link__icon::after {
   background-color: var(--colors-primary--500);
   border-radius: 50%;
-  content: "";
+  content: '';
   display: block;
   height: 0.5em;
   width: 0.5em;
@@ -276,7 +272,7 @@ a {
 .pad::before {
   background-color: var(--colors-primary--600);
   bottom: 5px;
-  content: "";
+  content: '';
   display: block;
   height: 3px; /* bigger to compensate transform */
   position: absolute;
@@ -304,14 +300,7 @@ textarea {
   line-height: 1;
   text-transform: uppercase;
   vertical-align: bottom; /* inline-block fix */
-  clip-path: polygon(
-    0.25em 0,
-    calc(100% - 1em) 0,
-    100% 100%,
-    0.33em 100%,
-    0 100%,
-    0 0.25em
-  );
+  clip-path: polygon(0.25em 0, calc(100% - 1em) 0, 100% 100%, 0.33em 100%, 0 100%, 0 0.25em);
 }
 
 .form-control {
@@ -324,7 +313,7 @@ textarea {
 .form-control::before {
   background-color: var(--colors-primary--600);
   bottom: 5px;
-  content: "";
+  content: '';
   display: block;
   height: 3px; /* bigger to compensate transform */
   position: absolute;
@@ -452,7 +441,7 @@ textarea {
 .button--size-xl::before {
   background-color: currentcolor;
   bottom: 5px;
-  content: "";
+  content: '';
   display: block;
   height: 3px; /* bigger to compensate transform */
   position: absolute;
@@ -543,7 +532,7 @@ textarea {
   background-color: var(--colors-primary--500);
   box-shadow: var(--ui-glow);
   bottom: 0;
-  content: "";
+  content: '';
   height: 1px;
   position: absolute;
   left: 0;
