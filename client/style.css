@@ -391,6 +391,17 @@ textarea {
   color: var(--colors-tertiary--500);
   font-size: 0.85rem;
   margin-top: 0.25rem;
+  text-align: right;
+}
+
+.message-ai .message__body {
+  border: 1px solid var(--colors-secondary--500);
+  color: var(--colors-secondary--500);
+}
+
+.message-ai .message__footer {
+  color: var(--colors-secondary--500);
+  text-align: left;
 }
 
 /* @component: button */
