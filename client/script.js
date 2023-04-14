@@ -6,9 +6,18 @@ const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval;
 
+// The ... loading text in AIs message while fetching response
+function loader(element) {
+  loadInterval = setInterval(() => {
+    // Update the text content of the loading indicator
+    element.textContent += '.';
+    // If the loading indicator has reached three dots, reset it
+    if (element.textContent === ' ....') element.textContent = ' ';
+  }, 300);
+}
+
 // AI typing text letter by letter
 function typeText(element, text) {
-  console.log('TYPETEXT()');
   let index = 0;
   let interval = setInterval(() => {
     if (index < text.length) { element.innerHTML += text.charAt(index); index++; }
@@ -16,11 +25,8 @@ function typeText(element, text) {
   }, 10);
 }
 
-// generate unique ID for each message div of bot
-// necessary for typing text effect for that specific reply
-// without unique ID, typing text will work on every element
+// generate unique ID for each message div of bot necessary for typing text effect for that specific reply without unique ID, typing text will work on every element
 function generateUniqueId() {
-  console.log('GENERATEUNIQUEID()');
   const timestamp = Date.now(), randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
   return `id-${timestamp}-${hexadecimalString}`;
@@ -28,11 +34,7 @@ function generateUniqueId() {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-  console.log('HANDLESUBMIT()');
-
-  console.log('form:', form);
   const data = new FormData(form);
-  console.log('data:', data);
 
   // user's message
   chatContainer.innerHTML += `<div class='message'><div class='message__body'>${data.get('message')}</div><div class='message__footer'><span class='message__authoring'>User</span> - </div></div>`;
@@ -42,13 +44,14 @@ const handleSubmit = async (e) => {
 
   // bot's message
   const uniqueId = generateUniqueId();
-  chatContainer.innerHTML += `<div class='message message-ai'><div class='message__body' id=${uniqueId}></div><div class='message__footer'><span class='message__authoring'>Codex</span> - </div></div>`;
+  chatContainer.innerHTML += `<div class='message message-ai'><div class='message__body' id=${uniqueId}>${' '}</div><div class='message__footer'><span class='message__authoring'>Codex</span> - </div></div>`;
 
   // to focus scroll to the bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   // specific message div
   const messageDiv = document.getElementById(uniqueId);
+  loader(messageDiv);
 
   const response = await fetch('http://localhost:5005/', {
     method: 'POST',
@@ -57,7 +60,7 @@ const handleSubmit = async (e) => {
   });
 
   clearInterval(loadInterval);
-  // messageDiv.innerHTML = ' ';
+  messageDiv.innerHTML = '';
 
   if (response.ok) {
     const data = await response.json();
@@ -72,7 +75,6 @@ const handleSubmit = async (e) => {
 
 form.addEventListener('submit', handleSubmit);
 form.addEventListener('keyup', (e) => {
-  console.log('EVENT LISTENER (keyup)');
   if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
 });
 
