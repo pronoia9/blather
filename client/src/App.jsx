@@ -14,14 +14,27 @@ function App() {
     console.log('tags', tags.length);
     console.log('links', links.length);
     setLoading(!(poem.length || tags.length || links.length));
-  }, [tags, links, poem])
+  }, [tags, links, poem]);
 
   // TAGS
+  async function fetchTags() {
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_URL,
+        { prompt: 'Get me the 5 trending twitter links and their tags in a json string format and remove whitespace' },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      setTags(Object.values(JSON.parse(response.data.bot.trim())));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => { fetchTags(); }, []);
 
   // LINKS
-  
+
   // POEM
-  async function getPoem() {
+  async function fetchPoem() {
     try {
       const response = await axios.post(
         import.meta.env.VITE_URL,
@@ -33,9 +46,7 @@ function App() {
       console.error(error);
     }
   }
-  useEffect(() => {
-    getPoem();
-  }, []);
+  useEffect(() => { fetchPoem(); }, []);
 
   return (
     <>
