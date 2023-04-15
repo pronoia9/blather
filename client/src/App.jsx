@@ -32,6 +32,20 @@ function App() {
   useEffect(() => { fetchTags(); }, []);
 
   // LINKS
+  async function fetchLinks() {
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_URL,
+        { prompt: 'Give at least 7 links about programming and their title in a json string format and remove whitespace' },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      console.log('fetch links', Object.values(JSON.parse(response.data.bot.trim())));
+      setLinks(Object.values(JSON.parse(response.data.bot.trim())));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => { fetchLinks(); }, []);
 
   // POEM
   async function fetchPoem() {
