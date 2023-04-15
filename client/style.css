@@ -223,8 +223,8 @@ a {
 .conversation-link__icon {
 }
 
-.conversation-link__icon::after {
-  background-color: var(--colors-primary--500);
+ .conversation-link__icon::after {
+  background-color: var(--colors-active--500);
   border-radius: 50%;
   content: '';
   display: block;
@@ -232,8 +232,8 @@ a {
   width: 0.5em;
 }
 
-.conversation-link--online .conversation-link__icon::after {
-  background-color: var(--colors-active--500);
+a:visited .conversation-link__icon::after {
+  background-color: var(--colors-secondary--900);
 }
 
 .channel-link--unread,
