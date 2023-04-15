@@ -1,12 +1,12 @@
 // generate unique ID for each message div of bot necessary for typing text effect for that specific reply without unique ID, typing text will work on every element
-export default function generateUniqueId() {
+function generateUniqueId() {
   const timestamp = Date.now(),
     randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
   return `id-${timestamp}-${hexadecimalString}`;
 }
 
-export default function getDate(date) {
+function getDate(date) {
   var hours = date.getHours();
   var minutes = date.getMinutes();
   var ampm = hours >= 12 ? 'PM' : 'AM';
@@ -18,7 +18,7 @@ export default function getDate(date) {
 }
 
 // The ... loading text in AIs message while fetching response
-export default function loader(element) {
+function loader(element) {
   loadInterval = setInterval(() => {
     // Update the text content of the loading indicator
     element.textContent += '.';
@@ -28,7 +28,7 @@ export default function loader(element) {
 }
 
 // AI typing text letter by letter
-export default function typeText(element, text, uniqueId) {
+function typeText(element, text, uniqueId) {
   let index = 0;
   let interval = setInterval(() => {
     if (index < text.length) {
@@ -41,3 +41,5 @@ export default function typeText(element, text, uniqueId) {
     }
   }, 10);
 }
+
+export { generateUniqueId, getDate, loader, typeText }
