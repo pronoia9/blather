@@ -7,14 +7,7 @@ function App() {
   const [tags, setTags] = useState('');
   const [links, setLinks] = useState('');
   const [poem, setPoem] = useState('');
-  const [loading, setLoading] = useState(!(poem.length && tags.length && links.length));
-
-  useEffect(() => {
-    console.log('poem', poem.length);
-    console.log('tags', tags.length);
-    console.log('links', links.length);
-    setLoading(!(poem.length || tags.length || links.length));
-  }, [tags, links, poem]);
+  const [loading, setLoading] = useState(1);
 
   // TAGS
   async function fetchTags() {
@@ -29,7 +22,6 @@ function App() {
       console.error(error);
     }
   }
-  useEffect(() => { fetchTags(); }, []);
 
   // LINKS
   async function fetchLinks() {
@@ -39,13 +31,11 @@ function App() {
         { prompt: 'Give at least 7 links about programming and their title in a json string format and remove whitespace' },
         { headers: { 'Content-Type': 'application/json' } }
       );
-      console.log('fetch links', Object.values(JSON.parse(response.data.bot.trim())));
       setLinks(Object.values(JSON.parse(response.data.bot.trim())));
     } catch (error) {
       console.error(error);
     }
   }
-  useEffect(() => { fetchLinks(); }, []);
 
   // POEM
   async function fetchPoem() {
@@ -60,7 +50,11 @@ function App() {
       console.error(error);
     }
   }
-  useEffect(() => { fetchPoem(); }, []);
+
+  // Fetch everything 
+  useEffect(() => { fetchTags(); fetchLinks(); fetchPoem(); }, []);
+  // Once everythings fetched, check if the states have proper data, then cancel the loading screen
+  useEffect(() => { setLoading(!(tags.length && links.length && poem.length)); }, [tags, links, poem]);
 
   return (
     <>
