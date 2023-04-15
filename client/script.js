@@ -4,9 +4,8 @@ import user from './assets/user.svg';
 const form = document.querySelector('form.channel-message-form');
 const chatContainer = document.querySelector('#chat_container');
 
-let loadInterval, randomTags, randomLinks;
+let loadInterval;
 
-generateTags();
 generateLinks();
 
 const handleSubmit = async (e) => {
@@ -30,7 +29,7 @@ const handleSubmit = async (e) => {
   const messageDiv = document.querySelector(`[id='${uniqueId}'] .message__body`);
   loader(messageDiv);
 
-  const response = await fetch('http://localhost:5005/', {
+  const response = await fetch('https://codex-17jb.onrender.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ prompt: data.get('message') }),
@@ -51,39 +50,61 @@ const handleSubmit = async (e) => {
 };
 
 // generate random links on the left sidebar
-async function generateTags() { }
-
 async function generateLinks() {
-  const nav = document.querySelector('.nav-links .nav-section__body .nav');
-  const links = fetch('http://localhost:5005/', {
+  const navTags = document.querySelector('.nav-tags .nav-section__body .nav'),
+    navLinks = document.querySelector('.nav-links .nav-section__body .nav');
+  fetch('https://codex-17jb.onrender.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      prompt:
-        'Give at least 7 links about programming and their title in a json string format and remove whitespace',
+      prompt: 'Get me the 5 trending twitter links and their tags in a json string format and remove whitespace',
     }),
   })
     .then((response) => response.json())
     .then((data) => {
       data.bot.trim();
-      const parsed = Object.values(JSON.parse(data.bot));
-      for (let i = 0; i < parsed.length; i += 2) {
-        console.log(parsed[i + 1], '-------', parsed[i]);
-        nav.innerHTML += `
+      Object.values(JSON.parse(data.bot)).map((link) => {
+        navTags.innerHTML += `
           <li class="nav__item">
-            <a class="nav__link" href="${parsed[i]}" target="_blank">
-              <span class="conversation-link">
-                <span class="conversation-link__icon"> </span>
-                <span class="conversation-link__element">${parsed[i + 1]}</span>
+            <a class="nav__link" href="${link.url}" target="_blank">
+              <span class="channel-link">
+                <span class="channel-link__icon">#</span><span class="channel-link__element">${link.tags[0]}</span>
               </span>
             </a>
           </li>`;
-      }
+      });
     })
-    .catch((error) => console.log(error))
-    .finally(() => {});
+    .finally(() => {
+      fetch('https://codex-17jb.onrender.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt: 'Give at least 7 links about programming and their title in a json string format and remove whitespace',
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          data.bot.trim();
+          const parsed = Object.values(JSON.parse(data.bot));
+          for (let i = 0; i < parsed.length; i += 2) {
+            navLinks.innerHTML += `
+              <li class="nav__item">
+                <a class="nav__link" href="${parsed[i]}" target="_blank">
+                  <span class="conversation-link">
+                    <span class="conversation-link__icon"> </span>
+                    <span class="conversation-link__element">${parsed[i + 1]}</span>
+                  </span>
+                </a>
+              </li>`;
+          }
+        })
+        .finally(() => {
+          // Add event listeners after the previous requests to AI are completed
+          form.addEventListener('keyup', (e) => { if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e); });
+          form.addEventListener('submit', handleSubmit);
+        });
+    });
 }
-
 
 // The ... loading text in AIs message while fetching response
 function loader(element) {
@@ -136,8 +157,3 @@ function generateUniqueId() {
   const hexadecimalString = randomNumber.toString(16);
   return `id-${timestamp}-${hexadecimalString}`;
 }
-
-form.addEventListener('keyup', (e) => {
-  if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
-});
-form.addEventListener('submit', handleSubmit);
