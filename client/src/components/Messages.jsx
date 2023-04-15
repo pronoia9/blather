@@ -23,13 +23,17 @@ const Messages = () => {
   const [messages, setMessages] = useState(hardMessages);
   let loadInterval;
 
+  const addMessage = (id, from, message, time) => { setMessages([...messages, { id, from, message, time }]) };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Users message
-    setMessages([...messages, { id: generateUniqueId(), from: 'An Awesome User', message, time: getDate(new Date()) }]);
-    // reset users input
+    addMessage(generateUniqueId(), 'An Awesome User', message, getDate(new Date()));
+    // Reset user input/textarea
     setMessage('');
+
+    // Save bots unique id
+    const uniqueId = generateUniqueId();
   };
 
   useEffect(() => { console.log(messages) }, [messages]); // log messages when theres a change (DEVELOPMENT ONLY)
