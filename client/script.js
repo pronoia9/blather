@@ -29,7 +29,7 @@ const handleSubmit = async (e) => {
   const messageDiv = document.querySelector(`[id='${uniqueId}'] .message__body`);
   loader(messageDiv);
 
-  const response = await fetch('https://codex-17jb.onrender.com', {
+  const response = await fetch(import.meta.env.VITE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ prompt: data.get('message') }),
@@ -55,7 +55,7 @@ async function generateLinks() {
     navLinks = document.querySelector('.nav-links .nav-section__body .nav'),
     poem = document.querySelector('.app-b .text-paragraph1');
   // FETCH POEM
-  fetch('https://codex-17jb.onrender.com', {
+  fetch(import.meta.env.VITE_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -68,7 +68,7 @@ async function generateLinks() {
     })
     .finally(() => {
       // FETCH TAGS
-      fetch('https://codex-17jb.onrender.com', {
+      fetch(import.meta.env.VITE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -90,7 +90,7 @@ async function generateLinks() {
         })
         .finally(() => {
           // FETCH LINKS
-          fetch('https://codex-17jb.onrender.com', {
+          fetch(import.meta.env.VITE_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
