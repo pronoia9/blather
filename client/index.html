@@ -15,17 +15,23 @@
       <!-- Navigation / Not Really Tho -->
       <header class="app-header">
         <!-- Logo-like Title -->
-        <div class="app-header__anchor"><span class="app-header__anchor__text">Codex - Your Coding AI</span></div>
+        <div class="app-header__anchor">
+          <span class="app-header__anchor__text">Codex - Your Coding AI</span>
+        </div>
         <!-- Navbar -->
         <nav>
           <ul class="nav">
             <li class="nav__item">
-              <a class="nav__link" href="#"><span class="nav__link__element">Home</span></a>
+              <a class="nav__link" href="#" target="_blank">
+                <span class="nav__link__element">Home</span>
+              </a>
             </li>
             <li class="nav__item">
               <a class="nav__link nav__link--active" href="https://openai.com">
                 <span class="nav__link__element">Open AI</span>
-                <span class="nav__link__element"><span class="badge">new</span></span>
+                <span class="nav__link__element">
+                  <span class="badge">new</span>
+                </span>
               </a>
             </li>
             <li class="nav__item">
@@ -53,10 +59,12 @@
         <!-- Left Section/Sidebar -->
         <div class="app-a">
           <div class="segment-topbar">
-            <div class="segment-topbar__header"><h3 class="text-heading3 segment-topbar__title">Messages</h3></div>
+            <div class="segment-topbar__header">
+              <h3 class="text-heading3 segment-topbar__title">Messages</h3>
+            </div>
             <div class="segment-topbar__aside">
               <div class="button-toolbar">
-                <a class="button button--primary button--size-lg" alt="left">
+                <a class="button button--primary button--size-lg">
                   <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"></path>
                   </svg>
@@ -81,94 +89,122 @@
           </div>
 
           <div class="nav-section">
-            <div class="nav-section__header"><h2 class="nav-section__title">Feeds</h2></div>
+            <div class="nav-section__header">
+              <h2 class="nav-section__title">Trending</h2>
+            </div>
             <div class="nav-section__body">
               <ul class="nav">
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="channel-link conversation-link--unread"
-                      ><span class="channel-link__icon">#</span><span class="channel-link__element">Afterlife</span
-                      ><span class="channel-link__element"><span class="badge">3</span></span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://twitter.com/hashtag/webdeveloper?src=hash" target="_blank">
+                    <span class="channel-link">
+                      <span class="channel-link__icon">#</span><span class="channel-link__element">WebDeveloper</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="channel-link"
-                      ><span class="channel-link__icon">#</span><span class="channel-link__element">NCPD-Gigs</span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://twitter.com/hashtag/webdevelopment?src=hash" target="_blank">
+                    <span class="channel-link">
+                      <span class="channel-link__icon">#</span><span class="channel-link__element">WebDevelopment</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="channel-link"
-                      ><span class="channel-link__icon">#</span><span class="channel-link__element">Pacifica</span></span
-                    ></a
+                  <a
+                    class="nav__link nav__link--active"
+                    href="https://twitter.com/hashtag/javascript?src=hash"
+                    target="_blank"
                   >
+                    <span class="channel-link">
+                      <span class="channel-link__icon">#</span><span class="channel-link__element">JavaScript</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link nav__link--active" href="#"
-                    ><span class="channel-link"
-                      ><span class="channel-link__icon">#</span><span class="channel-link__element">Watson</span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://twitter.com/hashtag/html5?src=hash" target="_blank">
+                    <span class="channel-link conversation-link--unread">
+                      <span class="channel-link__icon">#</span><span class="channel-link__element">HTML5</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="channel-link conversation-link--unread"
-                      ><span class="channel-link__icon">#</span><span class="channel-link__element">_T_SQUAD</span
-                      ><span class="channel-link__element"><span class="badge">2</span></span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://twitter.com/hashtag/css3?src=hash" target="_blank">
+                    <span class="channel-link">
+                      <span class="channel-link__icon">#</span><span class="channel-link__element">CSS3</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="nav__item">
+                  <a class="nav__link" href="https://twitter.com/hashtag/reactjs?src=hash" target="_blank">
+                    <span class="channel-link">
+                      <span class="channel-link__icon">#</span><span class="channel-link__element">ReactJS</span>
+                    </span>
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
 
           <div class="nav-section">
-            <div class="nav-section__header"><h2 class="nav-section__title">Direct</h2></div>
+            <div class="nav-section__header">
+              <h2 class="nav-section__title">Links</h2>
+            </div>
             <div class="nav-section__body">
               <ul class="nav">
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="conversation-link conversation-link--online conversation-link--unread"
-                      ><span class="conversation-link__icon"></span
-                      ><span class="conversation-link__element">Rogue Amendiares</span
-                      ><span class="conversation-link__element"><span class="badge">5</span></span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://www.freecodecamp.org/news/" target="_blank">
+                    <span class="conversation-link">
+                      <span class="conversation-link__icon"> </span>
+                      <span class="conversation-link__element">Free Code Camp</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="conversation-link conversation-link--online conversation-link--unread"
-                      ><span class="conversation-link__icon"></span><span class="conversation-link__element">Takemura</span
-                      ><span class="conversation-link__element"><span class="badge">1</span></span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://www.smashingmagazine.com/" target="_blank">
+                    <span class="conversation-link">
+                      <span class="conversation-link__icon"> </span>
+                      <span class="conversation-link__element">Smashing Magazine</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="conversation-link"
-                      ><span class="conversation-link__icon"></span
-                      ><span class="conversation-link__element">Wakado O., Regina Jones</span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://www.sitepoint.com/" target="_blank">
+                    <span class="conversation-link">
+                      <span class="conversation-link__icon"> </span>
+                      <span class="conversation-link__element">Site Point</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="conversation-link"
-                      ><span class="conversation-link__icon"></span
-                      ><span class="conversation-link__element">Dexter DeShawn</span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://css-tricks.com/" target="_blank">
+                    <span class="conversation-link">
+                      <span class="conversation-link__icon"> </span>
+                      <span class="conversation-link__element">CSS Tricks</span>
+                    </span>
+                  </a>
                 </li>
                 <li class="nav__item">
-                  <a class="nav__link" href="#"
-                    ><span class="conversation-link"
-                      ><span class="conversation-link__icon"></span
-                      ><span class="conversation-link__element">Megabuilding H10 Administration</span></span
-                    ></a
-                  >
+                  <a class="nav__link" href="https://developer.mozilla.org/en-US/docs/Web" target="_blank">
+                    <span class="conversation-link">
+                      <span class="conversation-link__icon"> </span>
+                      <span class="conversation-link__element">Mozilla Docs</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="nav__item">
+                  <a class="nav__link" href="https://www.tutorialspoint.com/web_development_tutorials" target="_blank">
+                    <span class="conversation-link">
+                      <span class="conversation-link__icon"> </span>
+                      <span class="conversation-link__element">Tutorials Point</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="nav__item">
+                  <a class="nav__link" href="https://www.hongkiat.com/blog/" target="_blank">
+                    <span class="conversation-link">
+                      <span class="conversation-link__icon"> </span>
+                      <span class="conversation-link__element">Hang Kiat</span>
+                    </span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -231,7 +267,7 @@
                 <div class="form-group">
                   <label class="form-label" for="message">Message</label>
                   <div class="form-control">
-                    <textarea id="message" class="form-control" name="message" placeholder="Ask Codex..."></textarea>
+                    <textarea id="message" class="form-control" name="message" placeholder="Ask Codex..."> </textarea>
                   </div>
                 </div>
                 <div class="form-footer">
