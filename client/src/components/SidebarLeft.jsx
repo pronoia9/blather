@@ -39,7 +39,7 @@ const SidebarLeft = ({ tags, links }) => {
         </div>
         <div className='nav-section__body'>
           <ul className='nav'>
-            {tags.length &&
+            {tags?.length &&
               tags.map(({ url, tags }) => (
                 <li key={tags[0]} className='nav__item'>
                   <a className='nav__link' href={`${url}`} target='_blank'>
@@ -59,7 +59,24 @@ const SidebarLeft = ({ tags, links }) => {
           <h2 className='nav-section__title'>Links</h2>
         </div>
         <div className='nav-section__body'>
-          <ul className='nav'></ul>
+          <ul className='nav'>
+            {links?.length &&
+              links.map((link, i) => {
+                if (!(i % 2)) {
+                  return (
+                    <li className='nav__item'>
+                      <a className='nav__link' href={`${links[i]}`} target='_blank'>
+                        <span className='conversation-link'>
+                          <span className='conversation-link__icon'> </span>
+                          <span className='conversation-link__element'>{links[i + 1]}</span>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                }
+              }
+              )}
+          </ul>
         </div>
       </div>
     </div>
