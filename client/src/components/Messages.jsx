@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import MessagesTopBar from './MessagesTopBar';
@@ -14,8 +14,8 @@ const Message = ({ id, message, from, time }) => {
 };
 
 const hardMessages = [
-  { message: 'Hi, how are you doing?', from: 'An Awesome User', time: ' - 10:30 PM', id: 'asdq3edsadfq13r' },
-  { message: 'Stop bothering me with useless questions.', from: 'Codex', time: ' - 10:31 PM', id: '51dq3edadfq13r' },
+  { id: 'asdq3edsadfq13r', from: 'An Awesome User', message: 'Hi, how are you doing?', time: ' - 10:30 PM' },
+  { id: '51dq3edadfq13r', from: 'Codex', message: 'Stop bothering me with useless questions.', time: ' - 10:31 PM' },
 ];
 
 const Messages = () => {
@@ -27,10 +27,12 @@ const Messages = () => {
     e.preventDefault();
 
     // Users message
-    setMessages([...messages, {}])
+    setMessages([...messages, { id: generateUniqueId(), from: 'An Awesome User', message, time: getDate(new Date()) }]);
     // reset users input
     setMessage('');
   };
+
+  useEffect(() => { console.log(messages) }, [messages]); // log messages when theres a change (DEVELOPMENT ONLY)
 
   return (
     <div className='app-main'>
@@ -40,8 +42,8 @@ const Messages = () => {
 
         {/* Messages Area */}
         <div id='chat_container' className='channel-feed__body'>
-          {hardMessages.map((msg) => (
-            <Message key={msg.id} {...msg} />
+          {messages.map((msg) => (
+            <Message key={msg.id} {...msg}  />
           ))}
         </div>
 
