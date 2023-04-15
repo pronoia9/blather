@@ -1,5 +1,7 @@
-import MessagesTopBar from './MessagesTopBar';
 import { useState } from 'react';
+import axios from 'axios';
+
+import MessagesTopBar from './MessagesTopBar';
 
 const Messages = () => {
   const [message, setMessage] = useState('');
