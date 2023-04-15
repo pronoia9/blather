@@ -1,3 +1,7 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&amp;display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&amp;display=swap');
+
 * {
   box-sizing: border-box;
   position: relative;
