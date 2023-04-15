@@ -1,4 +1,5 @@
-import React from 'react';
+import SidebarSection from './SidebarSection';
+import SidebarSectionItem from './SidebarSectionItem';
 
 const SidebarLeft = ({ tags, links }) => {
   return (
@@ -31,52 +32,27 @@ const SidebarLeft = ({ tags, links }) => {
         </div>
       </div>
 
-      <div className='nav-section nav-tags'>
-        <div className='nav-section__header'>
-          <h2 className='nav-section__title'>Trending</h2>
-        </div>
-        <div className='nav-section__body'>
-          <ul className='nav'>
-            {tags?.length &&
-              tags.map(({ url, tags }) => (
-                <li key={tags[0]} className='nav__item'>
-                  <a className='nav__link' href={`${url}`} target='_blank'>
-                    <span className='channel-link'>
-                      <span className='channel-link__icon'>#</span>
-                      <span className='channel-link__element'>{tags[0]}</span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </div>
-      </div>
+      <SidebarSection
+        type='tags'
+        title='Trending'
+        children={
+          tags?.length &&
+          tags.map(({ url, tags }) => <SidebarSectionItem type='tag' url={url} title={tags[0]} key={tags[0]} />)
+        }
+      />
 
-      <div className='nav-section nav-links'>
-        <div className='nav-section__header'>
-          <h2 className='nav-section__title'>Links</h2>
-        </div>
-        <div className='nav-section__body'>
-          <ul className='nav'>
-            {links?.length &&
-              links.map((link, i) => {
-                if (!(i % 2)) {
-                  return (
-                    <li className='nav__item'>
-                      <a className='nav__link' href={`${links[i]}`} target='_blank'>
-                        <span className='conversation-link'>
-                          <span className='conversation-link__icon'> </span>
-                          <span className='conversation-link__element'>{links[i + 1]}</span>
-                        </span>
-                      </a>
-                    </li>
-                  );
-                }
-              }
-              )}
-          </ul>
-        </div>
-      </div>
+      <SidebarSection
+        type='links'
+        title='Links'
+        children={
+          links?.length && (
+            links.map((link, i) => {
+              if (!(i % 2))
+                return <SidebarSectionItem type='link' url={links[i]} title={links[i + 1]} key={links[i + 1]} />;
+            })
+          )
+        }
+      />
     </div>
   );
 };
