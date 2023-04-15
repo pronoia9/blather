@@ -6,6 +6,9 @@ const chatContainer = document.querySelector('#chat_container');
 
 let loadInterval, randomTags, randomLinks;
 
+generateTags();
+generateLinks();
+
 const handleSubmit = async (e) => {
   e.preventDefault();
   const data = new FormData(form);
@@ -47,13 +50,40 @@ const handleSubmit = async (e) => {
   }
 };
 
-// generate random tags on the left sidebar
-function generateTags() {
+// generate random links on the left sidebar
+async function generateTags() { }
+
+async function generateLinks() {
+  const nav = document.querySelector('.nav-links .nav-section__body .nav');
+  const links = fetch('http://localhost:5005/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      prompt:
+        'Give at least 7 links about programming and their title in a json string format and remove whitespace',
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      data.bot.trim();
+      const parsed = Object.values(JSON.parse(data.bot));
+      for (let i = 0; i < parsed.length; i += 2) {
+        console.log(parsed[i + 1], '-------', parsed[i]);
+        nav.innerHTML += `
+          <li class="nav__item">
+            <a class="nav__link" href="${parsed[i]}" target="_blank">
+              <span class="conversation-link">
+                <span class="conversation-link__icon"> </span>
+                <span class="conversation-link__element">${parsed[i + 1]}</span>
+              </span>
+            </a>
+          </li>`;
+      }
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {});
 }
 
-// generate random links on the left sidebar
-function generateLinks() {
-}
 
 // The ... loading text in AIs message while fetching response
 function loader(element) {
@@ -92,12 +122,17 @@ function getDate(date) {
 }
 
 function message(isAi, value, uniqueId) {
-  return `<div class='message${isAi ? ' message-ai' : ''}' id=${uniqueId || generateUniqueId()}><div class='message__body'>${value}</div><div class='message__footer'><span class='message__authoring'>${!isAi ? 'An Awesome User' : 'Codex'}</span>${!isAi ? getDate(new Date()) : ''}</div></div>`;
+  return `<div class='message${isAi ? ' message-ai' : ''}' id=${
+    uniqueId || generateUniqueId()
+  }><div class='message__body'>${value}</div><div class='message__footer'><span class='message__authoring'>${
+    !isAi ? 'An Awesome User' : 'Codex'
+  }</span>${!isAi ? getDate(new Date()) : ''}</div></div>`;
 }
 
 // generate unique ID for each message div of bot necessary for typing text effect for that specific reply without unique ID, typing text will work on every element
 function generateUniqueId() {
-  const timestamp = Date.now(), randomNumber = Math.random();
+  const timestamp = Date.now(),
+    randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
   return `id-${timestamp}-${hexadecimalString}`;
 }
