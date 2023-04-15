@@ -1,8 +1,6 @@
 import React from 'react';
 
 const SidebarLeft = ({ tags, links }) => {
-  console.log('tags', tags);
-  console.log('links', links);
   return (
     <div className='app-a'>
       <div className='segment-topbar'>
