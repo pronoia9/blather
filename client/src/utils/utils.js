@@ -3,10 +3,10 @@ function generateUniqueId() {
   const timestamp = Date.now(),
     randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
-  return `id-${timestamp}-${hexadecimalString}`;
+  return `${timestamp}-${hexadecimalString}`;
 }
 
-function getDate(date) {
+function getTimestamp(date) {
   var hours = date.getHours();
   var minutes = date.getMinutes();
   var ampm = hours >= 12 ? 'PM' : 'AM';
@@ -18,12 +18,12 @@ function getDate(date) {
 }
 
 // The ... loading text in AIs message while fetching response
-function loader(element) {
+function loader(message) {
   loadInterval = setInterval(() => {
     // Update the text content of the loading indicator
-    element.textContent += '.';
+    message += '.';
     // If the loading indicator has reached three dots, reset it
-    if (element.textContent === ' ....') element.textContent = ' ';
+    if (message === ' ....') message = ' ';
   }, 300);
 }
 
@@ -42,4 +42,4 @@ function typeText(element, text, uniqueId) {
   }, 10);
 }
 
-export { generateUniqueId, getDate, loader, typeText }
+export { generateUniqueId, getTimestamp, loader, typeText }
