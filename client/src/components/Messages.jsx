@@ -2,9 +2,14 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import MessagesTopBar from './MessagesTopBar';
+import { generateUniqueId, getDate, loader, typeText } from '../utils/utils';
 
 const Messages = () => {
   const [message, setMessage] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   return (
     <div className='app-main'>
@@ -16,7 +21,7 @@ const Messages = () => {
         <div id='chat_container' className='channel-feed__body'></div>
         {/* Input / Send Message */}
         <div className='channel-feed__footer'>
-          <form className='channel-message-form'>
+          <form className='channel-message-form' onSubmit={handleSubmit}>
             <div className='form-group'>
               <label className='form-label' htmlFor='message'>
                 Message
