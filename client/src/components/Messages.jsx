@@ -4,12 +4,30 @@ import axios from 'axios';
 import MessagesTopBar from './MessagesTopBar';
 import { generateUniqueId, getDate, loader, typeText } from '../utils/utils';
 
+const Message = ({ id, message, from, time }) => {
+  return (
+    <div className={`message${from == 'Codex' ? ' message-ai' : ''}`} id={id}>
+      <div className='message__body'>{message}</div>
+      <div className='message__footer'><span className='message__authoring'>{from}{time}</span></div>
+    </div>
+  );
+};
+
+const hardMessages = [
+  { message: 'Hi, how are you doing?', from: 'An Awesome User', time: ' - 10:30 PM', id: 'asdq3edsadfq13r' },
+  { message: 'Stop bothering me with useless questions.', from: 'Codex', time: ' - 10:31 PM', id: '51dq3edadfq13r' },
+];
+
 const Messages = () => {
   const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState(hardMessages);
+  let loadInterval;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+
+    // Users message
+  };
 
   return (
     <div className='app-main'>
@@ -17,8 +35,11 @@ const Messages = () => {
         {/* Only Visual Not Functional */}
         <MessagesTopBar />
 
-        {/* Messages / Texting Area */}
-        <div id='chat_container' className='channel-feed__body'></div>
+        {/* Messages Area */}
+        <div id='chat_container' className='channel-feed__body'>
+          {hardMessages.map((msg) => <Message key={msg.id} {...msg} />)}
+        </div>
+
         {/* Input / Send Message */}
         <div className='channel-feed__footer'>
           <form className='channel-message-form' onSubmit={handleSubmit}>
