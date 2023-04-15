@@ -57,7 +57,7 @@ const Messages = () => {
               </div>
             </div>
             <div className='form-footer'>
-              <button className='button button--primary button--size-xl button-disable' type='submit'>
+              <button className='button button--primary button--size-xl' type='submit'>
                 <span className='button__content'>Send</span>
               </button>
             </div>
