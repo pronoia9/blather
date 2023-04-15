@@ -37,7 +37,9 @@ const SidebarLeft = ({ tags, links }) => {
         title='Trending'
         children={
           tags?.length &&
-          tags.map(({ url, tags }) => <SidebarSectionItem type='tag' url={url} title={tags[0]} key={tags[0]} />)
+          Object.values(JSON.parse(tags)).map(({ url, tags }) => (
+            <SidebarSectionItem type='tag' url={url} title={tags[0]} key={tags[0]} />
+          ))
         }
       />
 
@@ -45,12 +47,10 @@ const SidebarLeft = ({ tags, links }) => {
         type='links'
         title='Links'
         children={
-          links?.length && (
-            links.map((link, i) => {
-              if (!(i % 2))
-                return <SidebarSectionItem type='link' url={links[i]} title={links[i + 1]} key={links[i + 1]} />;
-            })
-          )
+          links?.length &&
+          Object.values(JSON.parse(links.trim())).map((link, i, links) => {
+            if (!(i % 2)) return <SidebarSectionItem type='link' url={links} title={links[i + 1]} key={links[i + 1]} />;
+          })
         }
       />
     </div>
