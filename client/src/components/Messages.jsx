@@ -19,7 +19,7 @@ const hardMessages = [
 ];
 
 const Messages = () => {
-  const [message, setMessage] = useState('');
+  const [input, setInput] = useState('');
   const [messages, setMessages] = useState(hardMessages);
   let loadInterval;
 
@@ -27,13 +27,23 @@ const Messages = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!input.trim().length) {
+      alert('You gotta type something you know...');
+      return;
+    }
+
     // Users message
-    addMessage(generateUniqueId(), 'An Awesome User', message, getDate(new Date()));
+    addMessage(generateUniqueId(), 'An Awesome User', input, getDate(new Date()));
     // Reset user input/textarea
-    setMessage('');
+    setInput('');
 
     // Save bots unique id
     const uniqueId = generateUniqueId();
+    // Add empty message for bot
+    addMessage(uniqueId, 'Codex', ' ', '');
+    // Do the . . . loading/typing for bot
+    console.log(messages.find((msg) => msg.id === uniqueId));
+    // loader()
   };
 
   useEffect(() => { console.log(messages) }, [messages]); // log messages when theres a change (DEVELOPMENT ONLY)
@@ -64,8 +74,8 @@ const Messages = () => {
                   className='form-control'
                   name='message'
                   placeholder='Ask Codex...'
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => { if (e.keyCode == 13 && !e.shiftKey) handleSubmit(e); }}></textarea>
               </div>
             </div>
