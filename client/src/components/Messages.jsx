@@ -27,6 +27,9 @@ const Messages = () => {
     e.preventDefault();
 
     // Users message
+    setMessages([...messages, {}])
+    // reset users input
+    setMessage('');
   };
 
   return (
@@ -37,12 +40,14 @@ const Messages = () => {
 
         {/* Messages Area */}
         <div id='chat_container' className='channel-feed__body'>
-          {hardMessages.map((msg) => <Message key={msg.id} {...msg} />)}
+          {hardMessages.map((msg) => (
+            <Message key={msg.id} {...msg} />
+          ))}
         </div>
 
         {/* Input / Send Message */}
         <div className='channel-feed__footer'>
-          <form className='channel-message-form' onSubmit={handleSubmit}>
+          <form className='channel-message-form' onSubmit={(e) => handleSubmit(e)}>
             <div className='form-group'>
               <label className='form-label' htmlFor='message'>
                 Message
@@ -54,7 +59,8 @@ const Messages = () => {
                   name='message'
                   placeholder='Ask Codex...'
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}></textarea>
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => { if (e.keyCode == 13 && !e.shiftKey) handleSubmit(e); }}></textarea>
               </div>
             </div>
             <div className='form-footer'>
