@@ -52,61 +52,77 @@ const handleSubmit = async (e) => {
 // generate random links on the left sidebar
 async function generateLinks() {
   const navTags = document.querySelector('.nav-tags .nav-section__body .nav'),
-    navLinks = document.querySelector('.nav-links .nav-section__body .nav');
+    navLinks = document.querySelector('.nav-links .nav-section__body .nav'),
+    poem = document.querySelector('.app-b .text-paragraph1');
+  // FETCH POEM
   fetch('https://codex-17jb.onrender.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      prompt: 'Get me the 5 trending twitter links and their tags in a json string format and remove whitespace',
+      prompt: 'Give me a random short poem',
     }),
   })
     .then((response) => response.json())
     .then((data) => {
-      data.bot.trim();
-      Object.values(JSON.parse(data.bot)).map((link) => {
-        navTags.innerHTML += `
-          <li class="nav__item">
-            <a class="nav__link" href="${link.url}" target="_blank">
-              <span class="channel-link">
-                <span class="channel-link__icon">#</span><span class="channel-link__element">${link.tags[0]}</span>
-              </span>
-            </a>
-          </li>`;
-      });
+      poem.innerHTML += `\n${data.bot.trim()}`;
     })
     .finally(() => {
+      // FETCH TAGS
       fetch('https://codex-17jb.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          prompt: 'Give at least 7 links about programming and their title in a json string format and remove whitespace',
+          prompt: 'Get me the 5 trending twitter links and their tags in a json string format and remove whitespace',
         }),
       })
         .then((response) => response.json())
         .then((data) => {
-          data.bot.trim();
-          const parsed = Object.values(JSON.parse(data.bot));
-          for (let i = 0; i < parsed.length; i += 2) {
-            navLinks.innerHTML += `
+          Object.values(JSON.parse(data.bot.trim())).map((link) => {
+            navTags.innerHTML += `
               <li class="nav__item">
-                <a class="nav__link" href="${parsed[i]}" target="_blank">
-                  <span class="conversation-link">
-                    <span class="conversation-link__icon"> </span>
-                    <span class="conversation-link__element">${parsed[i + 1]}</span>
+                <a class="nav__link" href="${link.url}" target="_blank">
+                  <span class="channel-link">
+                    <span class="channel-link__icon">#</span><span class="channel-link__element">${link.tags[0]}</span>
                   </span>
                 </a>
               </li>`;
-          }
+          });
         })
         .finally(() => {
-          // Add event listeners after the previous requests to AI are completed
-          form.addEventListener('keyup', (e) => {
-            e.preventDefault();
-            if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
-          });
-          form.addEventListener('submit', handleSubmit);
-          // Remove disabled class from button
-          document.querySelector('.button--primary.button-disable').classList.remove('button-disable');
+          // FETCH LINKS
+          fetch('https://codex-17jb.onrender.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prompt:
+                'Give at least 7 links about programming and their title in a json string format and remove whitespace',
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const parsed = Object.values(JSON.parse(data.bot.trim()));
+              for (let i = 0; i < parsed.length; i += 2) {
+                navLinks.innerHTML += `
+                  <li class="nav__item">
+                    <a class="nav__link" href="${parsed[i]}" target="_blank">
+                      <span class="conversation-link">
+                        <span class="conversation-link__icon"> </span>
+                        <span class="conversation-link__element">${parsed[i + 1]}</span>
+                      </span>
+                    </a>
+                  </li>`;
+              }
+            })
+            .finally(() => {
+              // Add event listeners after the previous requests to AI are completed
+              form.addEventListener('keyup', (e) => {
+                e.preventDefault();
+                if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
+              });
+              form.addEventListener('submit', handleSubmit);
+              // Remove disabled class from button
+              document.querySelector('.button--primary.button-disable').classList.remove('button-disable');
+            });
         });
     });
 }
