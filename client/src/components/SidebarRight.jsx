@@ -4,7 +4,7 @@ const SidebarRight = ({ poem }) => {
       <div className='pad'>
         <div className='pad__body'>
           <h4 className='text-heading3'>What's this?</h4>
-          <p className='text-paragraph1'>{poem}</p>
+          <p className='text-paragraph1'>{`\n${poem}`}</p>
         </div>
       </div>
     </div>
