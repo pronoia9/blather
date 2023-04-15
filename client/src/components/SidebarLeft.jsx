@@ -1,6 +1,8 @@
 import React from 'react';
 
-const SidebarLeft = () => {
+const SidebarLeft = ({ tags, links }) => {
+  console.log('tags', tags);
+  console.log('links', links);
   return (
     <div className='app-a'>
       <div className='segment-topbar'>
@@ -36,7 +38,19 @@ const SidebarLeft = () => {
           <h2 className='nav-section__title'>Trending</h2>
         </div>
         <div className='nav-section__body'>
-          <ul className='nav'></ul>
+          <ul className='nav'>
+            {tags.length &&
+              tags.map(({ url, tags }) => (
+                <li key={tags[0]} className='nav__item'>
+                  <a className='nav__link' href={`${url}`} target='_blank'>
+                    <span className='channel-link'>
+                      <span className='channel-link__icon'>#</span>
+                      <span className='channel-link__element'>{tags[0]}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+          </ul>
         </div>
       </div>
 
