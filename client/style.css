@@ -541,6 +541,10 @@ textarea {
   margin: 0;
 }
 
+.text-paragraph1 {
+  white-space:pre;
+}
+
 .segment-topbar {
   display: flex;
   justify-content: space-between;
