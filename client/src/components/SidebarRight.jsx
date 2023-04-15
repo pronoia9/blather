@@ -1,24 +1,4 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const SidebarRight = () => {
-  const [poem, setPoem] = useState('');
-
-  async function getPoem() {
-    try {
-      const response = await axios.post(
-        import.meta.env.VITE_URL,
-        { prompt: 'Give me a random short poem' },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-      setPoem(`\n${response.data.bot.trim()}`);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => { getPoem(); }, []);
-
+const SidebarRight = ({ poem }) => {
   return (
     <div className='app-b'>
       <div className='pad'>
