@@ -100,8 +100,13 @@ async function generateLinks() {
         })
         .finally(() => {
           // Add event listeners after the previous requests to AI are completed
-          form.addEventListener('keyup', (e) => { if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e); });
+          form.addEventListener('keyup', (e) => {
+            e.preventDefault();
+            if (e.keyCode === 13 && !e.shiftKey) handleSubmit(e);
+          });
           form.addEventListener('submit', handleSubmit);
+          // Remove disabled class from button
+          document.querySelector('.button--primary.button-disable').classList.remove('button-disable');
         });
     });
 }
