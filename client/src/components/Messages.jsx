@@ -1,6 +1,9 @@
-import MessagesTopBar from "./MessagesTopBar";
+import MessagesTopBar from './MessagesTopBar';
+import { useState } from 'react';
 
 const Messages = () => {
+  const [message, setMessage] = useState('');
+
   return (
     <div className='app-main'>
       <div className='channel-feed'>
@@ -17,7 +20,13 @@ const Messages = () => {
                 Message
               </label>
               <div className='form-control'>
-                <textarea id='message' className='form-control' name='message' placeholder='Ask Codex...'></textarea>
+                <textarea
+                  id='message'
+                  className='form-control'
+                  name='message'
+                  placeholder='Ask Codex...'
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}></textarea>
               </div>
             </div>
             <div className='form-footer'>
