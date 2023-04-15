@@ -4,7 +4,7 @@ import user from './assets/user.svg';
 const form = document.querySelector('form.channel-message-form');
 const chatContainer = document.querySelector('#chat_container');
 
-let loadInterval;
+let loadInterval, randomTags, randomLinks;
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -46,6 +46,14 @@ const handleSubmit = async (e) => {
     alert(err);
   }
 };
+
+// generate random tags on the left sidebar
+function generateTags() {
+}
+
+// generate random links on the left sidebar
+function generateLinks() {
+}
 
 // The ... loading text in AIs message while fetching response
 function loader(element) {
