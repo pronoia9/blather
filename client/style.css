@@ -494,6 +494,11 @@ textarea {
   margin-left: -1px;
 }
 
+.button-disable {
+  color: var(--colors-primary--700);
+  border-color: var(--colors-primary--700);
+}
+
 .channel-feed {
   display: flex;
   flex-direction: column;
