@@ -20,11 +20,9 @@ const Message = ({ id, message, from, time }) => {
 
 const Messages = () => {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([
-    { id: 'asdq3edsadfq13r', from: 'An Awesome User', message: 'Hi, how are you doing?', time: ' - 10:30 PM' },
-    { id: '51dq3edadfq13r', from: 'Codex', message: 'Stop bothering me with useless questions.', time: ' - 10:31 PM' },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [typing, setTyping] = useState(false);
   let loadInterval;
 
   const addMessage = (id, from, message, time) => {
@@ -41,31 +39,37 @@ const Messages = () => {
     }
 
     // Add user's message
-    addMessage(generateUniqueId(), 'An Awesome User', input, getTimestamp(new Date()))
+    const userMessage = input;
+    addMessage(generateUniqueId(), 'An Awesome User', input, getTimestamp(new Date()));
     // Reset user input/textarea
     setInput('');
-    
+
     // Save the bot's unique id
     const uniqueId = generateUniqueId();
-    setLoading(uniqueId);
     // Add empty message for bot
     addMessage(uniqueId, 'Codex', ' ', '');
+    // Set loading to bots id to useEffect and load the typing ...s
+    setLoading(uniqueId);
 
-    // Do the ... loading/typing for bot
-    // loader()
-    // console.log(messages);
+    setTimeout(() => {
+      const text = 'Lorem ipsum bla awe yoda.';
+      setLoading(false);
+      clearInterval(loadInterval);
+      setTyping(true);
+    }, 3000);
   };
 
   useEffect(() => {
-    console.log('messages (UE)', messages);
-    console.log('loading  (UE)', loading);
-
+    // console.log('messages (UE)', messages);
+    // console.log('loading  (UE)', loading);
     if (loading) {
       // const msg = messages.find((msg) => msg.id == loading);
       const idx = messages.findIndex((msg) => msg.id === loading);
       // console.log('2nd UE', `[${idx}]`, messages[idx]);
       // setMessages([...messages, { ...x, message: '...' }]);
-      loadInterval = setInterval(() => { 
+
+      // Do the ... loading/typing for bot
+      loadInterval = setInterval(() => {
         setMessages(
           messages.map((msg) => {
             if (msg.id === loading) {
@@ -75,10 +79,20 @@ const Messages = () => {
             return msg;
           })
         );
-      }, 300)
+      }, 300);
     }
   }, [loading]);
 
+  useEffect(() => {
+    console.log();
+  }, [typing]);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
+  useEffect(() => { console.log(`[UE] loading state changed to ${loading}!`); } , [loading])
+  useEffect(() => { console.log(`[UE] typing state changed to ${typing}!`); } , [typing])
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
   return (
     <div className='app-main'>
       <div className='channel-feed'>
