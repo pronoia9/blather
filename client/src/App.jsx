@@ -78,7 +78,7 @@ function App() {
         <div className='app-skeleton'>
           <Navbar />
           <div className='app-container'>
-            <SidebarLeft tags={tags} links={links} />
+            <SidebarLeft tags={tags} links={links} setMessages={setMessages} />
             <Messages messages={messages} setMessages={setMessages} />
             <SidebarRight poem={poem} />
           </div>
