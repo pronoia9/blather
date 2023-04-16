@@ -4,18 +4,25 @@ import axios from 'axios';
 import { Loader, Messages, Navbar, SidebarLeft, SidebarRight } from './components';
 
 function App() {
-  const [tags, setTags] = useState(localStorage.getItem('codexTags') || '');
-  const [links, setLinks] = useState(localStorage.getItem('codexLinks') || '');
-  const [poem, setPoem] = useState(localStorage.getItem('codexPoem') || '');
-  const [loading, setLoading] = useState(1);
+  const [tags, setTags] = useState('');
+  const [links, setLinks] = useState('');
+  const [poem, setPoem] = useState('');
+  const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
 
   // Check if theres data in local storage, if not fetch data
-  // Once fetching from either openai or localstorage is done, format it
   useEffect(() => {
-    if (!tags.length) fetchTags(); // else console.log('we already have tags!', tags);
-    if (!links.length) fetchLinks(); // else console.log('we already have links!', tags);
-    if (!poem.length) fetchPoem(); // else console.log('we already have a poem!', tags);
+    const prevTags = localStorage.getItem('codexTags');
+    const prevLinks = localStorage.getItem('codexLinks');
+    const prevPoem = localStorage.getItem('codexPoem');
+    !prevLinks && fetchLinks();
+    !prevTags && fetchTags();
+    !prevPoem && fetchPoem();
+    if (!tags || !links || !poem) {
+      setTimeout(() => { !tags && setTags(prevTags); }, 2000);
+      setTimeout(() => { !links && setLinks(prevLinks); }, 2000);
+      setTimeout(() => { !tags && setPoem(prevPoem); }, 2000);
+    }
   }, []);
 
   // Once everythings fetched, check if the states have proper data, then cancel the loading screen
