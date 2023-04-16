@@ -17,29 +17,4 @@ function getTimestamp(date) {
   return ` - ${strTime}`;
 }
 
-// The ... loading text in AIs message while fetching response
-function loader(message) {
-  loadInterval = setInterval(() => {
-    // Update the text content of the loading indicator
-    message += '.';
-    // If the loading indicator has reached three dots, reset it
-    if (message === ' ....') message = ' ';
-  }, 300);
-}
-
-// AI typing text letter by letter
-function typeText(element, text, uniqueId) {
-  let index = 0;
-  let interval = setInterval(() => {
-    if (index < text.length) {
-      element.innerHTML += text.charAt(index);
-      index++;
-    } else {
-      clearInterval(interval);
-      let timestamp = document.querySelector(`[id='${uniqueId}'] .message__authoring`);
-      timestamp.innerHTML += getDate(new Date());
-    }
-  }, 10);
-}
-
-export { generateUniqueId, getTimestamp, loader, typeText }
+export { generateUniqueId, getTimestamp, }
