@@ -30,7 +30,7 @@ const Messages = () => {
 
   const loader = () => {};
 
-  const typeText = () => {};
+  const typeText = () => { };
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -49,30 +49,38 @@ const Messages = () => {
 
     // Fetch AI's response
     setTimeout(() => {
+      console.log('Setting fetched now...');
       setFetched("I can't be bothered to fetch and waste my OpenAI free plan...");
     }, 3000);
   };
 
   useEffect(() => {
     if (loading) {
-      loadInterval = setInterval(() => {
+      loadInterval.current = setInterval(() => {
         setMessages(
           messages.map((msg) => {
-            // Do the ... loading/typing for bot
             if (msg.id === loading) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
             return msg;
           })
         );
       }, 300);
-    } else clearInterval(loadInterval.current);
+      console.log('Interval set!', loadInterval);
+    } else {
+      console.log('Loading is now set to false!');
+      console.log('Clearing interval...', loadInterval);
+      clearInterval(loadInterval.current);
+      console.log('Interval should be cleared!', loadInterval);
+    }
   }, [loading]);
 
   useEffect(() => {
     if (fetched) {
+      console.log('Fetch set to a string!');
+      console.log('Setting loading false...');
       setLoading(false);
     } else setTyping(true);
   }, [fetched]);
-  
+
   useEffect(() => {
     let i = 0,
       interval;
