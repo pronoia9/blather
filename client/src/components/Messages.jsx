@@ -68,17 +68,18 @@ const Messages = () => {
   }, [loading]);
 
   useEffect(() => {
+    if (fetched) {
+      setLoading(false);
+    } else setTyping(true);
+  }, [fetched]);
+  
+  useEffect(() => {
     let i = 0,
       interval;
     if (typing) {
     } else console.log('typing is false');
   }, [typing]);
 
-  useEffect(() => {
-    if (fetched) {
-      setLoading(false);
-    } else setTyping(true);
-  }, [fetched]);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
