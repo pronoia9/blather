@@ -36,17 +36,27 @@ const Messages = () => {
     e.preventDefault();
     if (!input.trim().length) return alert('You gotta type something you know...');
 
+    let lastInput = input; // Save the input for axios post since itll be cleared after adding the message
+    lastUid.current = generateUniqueId(); // Save the bot's unique id
+
     addMessage(generateUniqueId(), 'An Awesome User', input, getTimestamp(new Date())); // Add user's message
     setInput(''); // Reset user input/textarea
 
-    lastUid.current = generateUniqueId(); // Save the bot's unique id
     addMessage(lastUid.current, 'Codex', ' ', ''); // Add empty message for bot
     setLoading(lastUid.current); // Set loading to bots id to useEffect and load the typing ...s
 
     // Fetch AI's response
-    setTimeout(() => {
-      setFetched("I can't be bothered to fetch and waste my OpenAI free plan...");
-    }, 3000);
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_URL,
+        { prompt: lastInput || "I can't be bothered to fetch and waste my OpenAI free plan..." },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      setFetched(response.data.bot.trim());
+    } catch (error) {
+      console.error(error);
+      alert('There was an error getting a response from OpenAI.');
+    }
   };
 
   useEffect(() => {
