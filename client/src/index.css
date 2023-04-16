@@ -479,11 +479,20 @@ textarea {
   color: var(--colors-secondary--500);
   border-color: var(--colors-secondary--500);
 }
-
 .button--primary:hover {
   background-color: var(--colors-secondary--900);
   color: var(--colors-secondary--500);
 }
+
+.app-a .button--primary {
+  color: var(--colors-primary--500);
+  border-color: var(--colors-primary--500);
+}
+
+.app-a .button--primary:hover {
+  background-color: var(--colors-primary-200) !important;
+}
+
 
 .button-toolbar {
   display: flex;
@@ -496,6 +505,15 @@ textarea {
 
 .button-toolbar .button + .button {
   margin-left: -1px;
+}
+
+.button-pending {
+  color: var(--colors-secondary--500) !important;
+  border-color: var(--colors-secondary--500) !important;
+}
+
+.button-pending:hover {
+  background-color: var(--colors-secondary--900) !important;
 }
 
 .button-disable {
