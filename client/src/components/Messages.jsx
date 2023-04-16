@@ -24,14 +24,13 @@ const Messages = () => {
     { id: 'asdq3edsadfq13r', from: 'An Awesome User', message: 'Hi, how are you doing?', time: ' - 10:30 PM' },
     { id: '51dq3edadfq13r', from: 'Codex', message: 'Stop bothering me with useless questions.', time: ' - 10:31 PM' },
   ]);
-  const [lastUID, setLastUID] = useState('');
   const [loading, setLoading] = useState(false);
   let loadInterval;
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,29 +45,39 @@ const Messages = () => {
     // Reset user input/textarea
     setInput('');
     
-    
     // Save the bot's unique id
     const uniqueId = generateUniqueId();
-    setLastUID(uniqueId);
+    setLoading(uniqueId);
     // Add empty message for bot
     addMessage(uniqueId, 'Codex', ' ', '');
 
-    // Do the . . . loading/typing for bot
+    // Do the ... loading/typing for bot
     // loader()
     // console.log(messages);
   };
 
   useEffect(() => {
     console.log('messages (UE)', messages);
-    console.log('last uid (UE)', lastUID);
+    console.log('loading  (UE)', loading);
 
-    if (lastUID) {
-      const x = messages.find((msg) => msg.id == lastUID);
-      console.log('2nd UE', x);
+    if (loading) {
+      // const msg = messages.find((msg) => msg.id == loading);
+      const idx = messages.findIndex((msg) => msg.id === loading);
+      // console.log('2nd UE', `[${idx}]`, messages[idx]);
       // setMessages([...messages, { ...x, message: '...' }]);
-
+      loadInterval = setInterval(() => { 
+        setMessages(
+          messages.map((msg) => {
+            if (msg.id === loading) {
+              msg.message += '.';
+              if (msg.message.includes('....')) msg.message = ' ';
+            }
+            return msg;
+          })
+        );
+      }, 300)
     }
-  }, [messages]);
+  }, [loading]);
 
   return (
     <div className='app-main'>
