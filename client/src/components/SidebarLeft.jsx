@@ -1,9 +1,10 @@
 import SidebarSection from './SidebarSection';
 import SidebarSectionItem from './SidebarSectionItem';
 
-const SidebarLeft = ({ tags, links }) => {
+const SidebarLeft = ({ tags, links, setMessages }) => {
   const loadPreviousMessages = () => {
-    console.log(JSON.parse(localStorage.getItem('codexMessages')));
+    const prev = localStorage.getItem('codexMessages');
+    if (prev) setMessages(JSON.parse(prev));
   }
   
   return (
