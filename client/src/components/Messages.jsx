@@ -77,6 +77,7 @@ const Messages = () => {
       setLoading(false); // Once fetched is set, stop loading the ...s
       setTyping(fetched); // and start "typing" the fetched message instead
     }
+    return setFetched(false);
   }, [fetched]);
 
   useEffect(() => {
