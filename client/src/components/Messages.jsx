@@ -24,7 +24,7 @@ const Messages = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
-  let lastUid = useRef(), loadInterval = useRef(), i = useRef(), typingInterval = useRef();
+  let lastUid = useRef(), loadInterval = useRef(), typingInterval = useRef();
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -61,10 +61,12 @@ const Messages = () => {
     } else {
       clearInterval(loadInterval.current);
       if (messages.length) {
-        setMessages(messages?.map((msg) => {
-          if (msg.id === lastUid.current) msg.message = ''; // Reset any lingering .s on the no longer loading message
-          return msg;
-        }));
+        setMessages(
+          messages?.map((msg) => {
+            if (msg.id === lastUid.current) msg.message = ''; // Reset any lingering .s on the no longer loading message
+            return msg;
+          })
+        );
       }
     }
   }, [loading]);
@@ -77,19 +79,19 @@ const Messages = () => {
   }, [fetched]);
 
   useEffect(() => {
-    i.current = 0;
+    let i = 0;
     if (typing) {
       typingInterval.current = setInterval(() => {
-        if (i.current < typing.length) {
+        if (i < typing.length) {
           setMessages(
             messages.map((msg) => {
-              if (msg.id === lastUid.current) msg.message += typing.charAt(i.current);
+              if (msg.id === lastUid.current) msg.message += typing.charAt(i);
               return msg;
             })
           );
-          i.current += 1;
+          i++;
         } else {
-          clearInterval(typingInterval.current);
+          clearInterval(typingInterval.current); // Once all the chars are added, stop the interval
           setMessages(
             messages.map((msg) => {
               if (msg.id === lastUid.current) msg.time = getTimestamp(new Date());
@@ -97,10 +99,9 @@ const Messages = () => {
             })
           );
         }
-      }, 10)
-      setTyping(false);
+      }, 10);
     }
-    else {}
+    return setTyping(false); // Set typing to false once done
   }, [typing]);
 
   return (
@@ -111,7 +112,9 @@ const Messages = () => {
 
         {/* Messages Area */}
         <div id='chat_container' className='channel-feed__body'>
-          {messages?.map((msg) => <Message key={msg.id} {...msg} />)}
+          {messages?.map((msg) => (
+            <Message key={msg.id} {...msg} />
+          ))}
         </div>
 
         {/* Input / Send Message */}
