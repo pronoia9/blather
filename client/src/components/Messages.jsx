@@ -24,7 +24,7 @@ const Messages = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
-  let lastUid = useRef(), loadInterval = useRef();
+  let lastUid = useRef(), loadInterval = useRef(), i = useRef(), typingInterval = useRef();
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -85,12 +85,28 @@ const Messages = () => {
   }, [fetched]);
 
   useEffect(() => {
-    let i = 0, interval;
+    i.current = 0;
     if (typing) {
-      setMessages(messages.map((msg) => {
-        if (msg.id === lastUid.current) msg.message = typing;
-        return msg;
-      }))
+      typingInterval.current = setInterval(() => {
+        if (i.current < typing.length) {
+          console.log(i.current, '/', typing.length);
+          setMessages(
+            messages.map((msg) => {
+              if (msg.id === lastUid.current) msg.message += typing.charAt(i.current);
+              return msg;
+            })
+          );
+          i.current += 1;
+        } else {
+          clearInterval(typingInterval.current);
+          setMessages(
+            messages.map((msg) => {
+              if (msg.id === lastUid.current) msg.time = getTimestamp(new Date());
+              return msg;
+            })
+          );
+        }
+      }, 10)
       setTyping(false);
     }
     else {}
