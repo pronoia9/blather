@@ -1,7 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import SidebarSection from './SidebarSection';
-import SidebarSectionItem from './SidebarSectionItem';
+const SidebarSectionItem = ({ type, url, title }) => {
+  return (
+    <li className='nav__item'>
+      <a className='nav__link' href={url} target='_blank'>
+        <span className={`${type == 'tag' ? 'channel' : 'conversation'}-link`}>
+          <span className={`${type == 'tag' ? 'channel' : 'conversation'}-link__icon`}>{type == 'tag' ? '#' : ' '}</span>
+          <span className={`${type == 'tag' ? 'channel' : 'conversation'}-link__element`}>{title}</span>
+        </span>
+      </a>
+    </li>
+  );
+};
+
+const SidebarSection = ({ type, title, children }) => {
+  return (
+    <div className={`nav-section nav-${type}`}>
+      <div className='nav-section__header'>
+        <h2 className='nav-section__title'>{title}</h2>
+      </div>
+      <div className='nav-section__body'>
+        <ul className='nav'>{children}</ul>
+      </div>
+    </div>
+  );
+};
 
 const SidebarLeft = ({ tags, links, messages, setMessages }) => {
   const [pending, setPending] = useState(messages.length !== JSON.parse(localStorage.getItem('codexMessages')).length);
