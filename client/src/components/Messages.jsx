@@ -43,7 +43,6 @@ const Messages = () => {
 
     // Fetch AI's response
     setTimeout(() => {
-      console.log('Setting fetched now...');
       setFetched("I can't be bothered to fetch and waste my OpenAI free plan...");
     }, 3000);
   };
@@ -59,10 +58,7 @@ const Messages = () => {
           })
         );
       }, 300);
-      console.log('Interval set!', loadInterval);
     } else {
-      console.log('Loading is now set to false!');
-      console.log('Clearing interval...', loadInterval);
       clearInterval(loadInterval.current);
       if (messages.length) {
         setMessages(messages?.map((msg) => {
@@ -70,16 +66,12 @@ const Messages = () => {
           return msg;
         }));
       }
-      console.log('Interval should be cleared!', loadInterval);
     }
   }, [loading]);
 
   useEffect(() => {
     if (fetched) {
-      console.log('Fetch set to a string!', fetched);
-      console.log('Setting loading false...');
       setLoading(false); // Disable loading and
-      console.log('Typing being set to the fetched text.');
       setTyping(fetched); // start typing instead
     }
   }, [fetched]);
@@ -89,7 +81,6 @@ const Messages = () => {
     if (typing) {
       typingInterval.current = setInterval(() => {
         if (i.current < typing.length) {
-          console.log(i.current, '/', typing.length);
           setMessages(
             messages.map((msg) => {
               if (msg.id === lastUid.current) msg.message += typing.charAt(i.current);
@@ -111,13 +102,6 @@ const Messages = () => {
     }
     else {}
   }, [typing]);
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading); }, [loading]);
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing); }, [typing]);
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched); }, [fetched]);
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className='app-main'>
