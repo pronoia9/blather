@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import MessagesTopBar from './MessagesTopBar';
 import { generateUniqueId, getTimestamp, } from '../utils/utils';
-import useInterval from '../hooks/useInterval';
 
 const Message = ({ id, message, from, time }) => {
   return (
@@ -25,7 +24,7 @@ const Messages = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
-  let lastUniqueId = useRef(), loadInterval = useRef(), index = useRef();
+  let lastUid = useRef(), loadInterval = useRef(), index = useRef();
 
   const loader = () => { }
   
@@ -42,9 +41,9 @@ const Messages = () => {
     addMessage(generateUniqueId(), 'An Awesome User', input, getTimestamp(new Date())); // Add user's message
     setInput(''); // Reset user input/textarea
 
-    lastUniqueId = generateUniqueId(); // Save the bot's unique id
-    addMessage(lastUniqueId, 'Codex', ' ', ''); // Add empty message for bot
-    setLoading(lastUniqueId); // Set loading to bots id to useEffect and load the typing ...s
+    lastUid = generateUniqueId(); // Save the bot's unique id
+    addMessage(lastUid, 'Codex', ' ', ''); // Add empty message for bot
+    setLoading(lastUid); // Set loading to bots id to useEffect and load the typing ...s
 
     // Fetch AI's response
     setTimeout(() => {
@@ -80,22 +79,16 @@ const Messages = () => {
 
   useEffect(() => {
     if (fetched) {
-      lastUniqueId = loading; // save the bot's message's uid before changing loading
-      setLoading(false);
+      // lastUniqueId = loading; // save the bot's message's uid before changing loading
+      // setLoading(false);
     }
   }, [fetched]);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
-  useEffect(() => {
-    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading);
-  }, [loading]);
-  useEffect(() => {
-    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing);
-  }, [typing]);
-  useEffect(() => {
-    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched);
-  }, [fetched]);
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading); }, [loading]);
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing); }, [typing]);
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched); }, [fetched]);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
