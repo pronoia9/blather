@@ -8,6 +8,7 @@ function App() {
   const [links, setLinks] = useState(localStorage.getItem('codexLinks') || '');
   const [poem, setPoem] = useState(localStorage.getItem('codexPoem') || '');
   const [loading, setLoading] = useState(1);
+  const [messages, setMessages] = useState([]);
 
   // Check if theres data in local storage, if not fetch data
   // Once fetching from either openai or localstorage is done, format it
@@ -78,7 +79,7 @@ function App() {
           <Navbar />
           <div className='app-container'>
             <SidebarLeft tags={tags} links={links} />
-            <Messages />
+            <Messages messages={messages} setMessages={setMessages} />
             <SidebarRight poem={poem} />
           </div>
         </div>

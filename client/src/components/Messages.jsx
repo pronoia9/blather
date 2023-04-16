@@ -18,9 +18,8 @@ const Message = ({ id, message, from, time }) => {
   );
 };
 
-const Messages = () => {
+const Messages = ({ messages, setMessages }) => {
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
