@@ -117,9 +117,8 @@ const Messages = () => {
   }, [typing]);
 
   useEffect(() => {
-    if (messages.length && !lastUid.current) {
-      console.log(messages);
-    }
+    // Saves messages whenever theyre updated (without the minor changes aka loading/typing)
+    if (messages.length && !lastUid.current) localStorage.setItem('codexMessages', JSON.stringify(messages));
   }, [messages])
 
   return (
