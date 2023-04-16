@@ -48,7 +48,7 @@ const SidebarLeft = ({ tags, links }) => {
         title='Links'
         children={
           links?.length &&
-          Object.values(JSON.parse(links.trim())).map((link, i, links) => {
+          Object.values(JSON.parse(links.trim())).slice(4).map((link, i, links) => {
             if (!(i % 2)) return <SidebarSectionItem type='link' url={links} title={links[i + 1]} key={links[i + 1]} />;
           })
         }
