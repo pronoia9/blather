@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 import MessagesTopBar from './MessagesTopBar';
-import { generateUniqueId, getTimestamp, } from '../utils/utils';
+import { generateUniqueId, getTimestamp } from '../utils/utils';
 
 const Message = ({ id, message, from, time }) => {
   return (
@@ -24,11 +24,13 @@ const Messages = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
-  let lastUid = useRef(), loadInterval = useRef(), index = useRef();
+  let lastUid = useRef(),
+    loadInterval = useRef(),
+    index = useRef();
 
-  const loader = () => { }
-  
-  const typeText = () => {}
+  const loader = () => {};
+
+  const typeText = () => {};
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -52,43 +54,43 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    // if (loading) {
-      // Do the ... loading/typing for bot
-      // loadInterval.current = setInterval(() => {
-      //   setMessages(
-      //     messages.map((msg) => {
-      //       if (msg.id === loading) {
-      //         msg.message += '.';
-      //         if (msg.message.includes('....')) msg.message = ' ';
-      //       }
-      //       return msg;
-      //     })
-      //   );
-      // }, 300);
-    // }
-    // else clearInterval(loadInterval.current);
+    if (loading) {
+      loadInterval = setInterval(() => {
+        setMessages(
+          messages.map((msg) => {
+            // Do the ... loading/typing for bot
+            if (msg.id === loading) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
+            return msg;
+          })
+        );
+      }, 300);
+    } else clearInterval(loadInterval.current);
   }, [loading]);
 
   useEffect(() => {
-    // let i = 0, interval;
-    // if (typing) {
-    //   // stuff
-    //  }
-    // // else if (interval) clearInterval(interval);
-  }, [typing])
+    let i = 0,
+      interval;
+    if (typing) {
+    } else console.log('typing is false');
+  }, [typing]);
 
   useEffect(() => {
     if (fetched) {
-      // lastUniqueId = loading; // save the bot's message's uid before changing loading
-      // setLoading(false);
-    }
+      setLoading(false);
+    } else setTyping(true);
   }, [fetched]);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading); }, [loading]);
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing); }, [typing]);
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched); }, [fetched]);
+  useEffect(() => {
+    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading);
+  }, [loading]);
+  useEffect(() => {
+    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing);
+  }, [typing]);
+  useEffect(() => {
+    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched);
+  }, [fetched]);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
