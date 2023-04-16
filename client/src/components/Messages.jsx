@@ -24,13 +24,7 @@ const Messages = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
-  let lastUid = useRef(),
-    loadInterval = useRef(),
-    index = useRef();
-
-  const loader = () => {};
-
-  const typeText = () => {};
+  let lastUid = useRef(), loadInterval = useRef();
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -84,14 +78,22 @@ const Messages = () => {
     if (fetched) {
       console.log('Fetch set to a string!', fetched);
       console.log('Setting loading false...');
-      setLoading(false);
-    } else setTyping(true);
+      setLoading(false); // Disable loading and
+      console.log('Typing being set to the fetched text.');
+      setTyping(fetched); // start typing instead
+    }
   }, [fetched]);
 
   useEffect(() => {
     let i = 0, interval;
-    if (typing) { }
-    else console.log('typing is false');
+    if (typing) {
+      setMessages(messages.map((msg) => {
+        if (msg.id === lastUid.current) msg.message = typing;
+        return msg;
+      }))
+      setTyping(false);
+    }
+    else {}
   }, [typing]);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
