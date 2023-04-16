@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const SidebarSectionItem = ({ type, url, title }) => {
   return (
@@ -27,7 +27,12 @@ const SidebarSection = ({ type, title, children }) => {
 };
 
 const SidebarLeft = ({ tags, links, messages, setMessages }) => {
-  const [pending, setPending] = useState(messages.length !== JSON.parse(localStorage.getItem('codexMessages')).length);
+  const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+    const prev = localStorage.getItem('codexMessages');
+    (prev && messages) && setPending(messages.length !== JSON.parse(prev).length);
+  }, [])
 
   const loadPreviousMessages = () => {
     const prev = localStorage.getItem('codexMessages');
