@@ -24,9 +24,7 @@ const Messages = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
-  let lastUid = useRef(),
-    loadInterval = useRef(),
-    typingInterval = useRef();
+  let lastUid = useRef(), loadInterval = useRef(), typingInterval = useRef();
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -47,12 +45,13 @@ const Messages = () => {
 
     // Fetch AI's response
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_URL,
-        { prompt: lastInput || "I can't be bothered to fetch and waste my OpenAI free plan..." },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-      setFetched(response.data.bot.trim());
+      // const response = await axios.post(
+      //   import.meta.env.VITE_URL,
+      //   { prompt: lastInput || "I can't be bothered to fetch and waste my OpenAI free plan..." },
+      //   { headers: { 'Content-Type': 'application/json' } }
+      // );
+      // setFetched(response.data.bot.trim());
+      setFetched('I can\'t be bothered to fetch and waste my OpenAI free plan...');
     } catch (error) {
       console.error(error);
       alert('There was an error getting a response from OpenAI.');
@@ -110,11 +109,18 @@ const Messages = () => {
               return msg;
             })
           );
+          lastUid.current = false;
         }
       }, 10);
     }
     return setTyping(false); // Set typing to false once done
   }, [typing]);
+
+  useEffect(() => {
+    if (messages.length && !lastUid.current) {
+      console.log(messages);
+    }
+  }, [messages])
 
   return (
     <div className='app-main'>
