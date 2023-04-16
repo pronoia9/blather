@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { unionBy } from 'lodash';
 
 import MessagesTopBar from './MessagesTopBar';
 import { generateUniqueId, getTimestamp } from '../utils/utils';
@@ -50,7 +51,7 @@ const Messages = ({ messages, setMessages }) => {
       //   { headers: { 'Content-Type': 'application/json' } }
       // );
       // setFetched(response.data.bot.trim());
-      setFetched('I can\'t be bothered to fetch and waste my OpenAI free plan...');
+      setFetched("I can't be bothered to fetch and waste my OpenAI free plan...");
     } catch (error) {
       console.error(error);
       alert('There was an error getting a response from OpenAI.');
@@ -117,8 +118,11 @@ const Messages = ({ messages, setMessages }) => {
 
   useEffect(() => {
     // Saves messages whenever theyre updated (without the minor changes aka loading/typing)
-    if (messages.length && !lastUid.current) localStorage.setItem('codexMessages', JSON.stringify(messages));
-  }, [messages])
+    if (messages.length && !lastUid.current) {
+      const prev = localStorage.getItem('codexMessages');
+      localStorage.setItem('codexMessages', prev?.length ? JSON.stringify(unionBy(JSON.parse(prev), messages, 'id')) : JSON.stringify(messages));
+    }
+  }, [messages]);
 
   return (
     <div className='app-main'>
