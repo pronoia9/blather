@@ -43,9 +43,9 @@ const Messages = () => {
     addMessage(generateUniqueId(), 'An Awesome User', input, getTimestamp(new Date())); // Add user's message
     setInput(''); // Reset user input/textarea
 
-    lastUid = generateUniqueId(); // Save the bot's unique id
-    addMessage(lastUid, 'Codex', ' ', ''); // Add empty message for bot
-    setLoading(lastUid); // Set loading to bots id to useEffect and load the typing ...s
+    lastUid.current = generateUniqueId(); // Save the bot's unique id
+    addMessage(lastUid.current, 'Codex', ' ', ''); // Add empty message for bot
+    setLoading(lastUid.current); // Set loading to bots id to useEffect and load the typing ...s
 
     // Fetch AI's response
     setTimeout(() => {
@@ -59,7 +59,7 @@ const Messages = () => {
       loadInterval.current = setInterval(() => {
         // To do the loading thing, have to set the whole messages again with an update to the message T_T
         setMessages(messages.map((msg) => {
-          if (msg.id === loading) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
+          if (msg.id === lastUid.current) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
           return msg;
         }));
       }, 300);
@@ -68,22 +68,30 @@ const Messages = () => {
       console.log('Loading is now set to false!');
       console.log('Clearing interval...', loadInterval);
       clearInterval(loadInterval.current);
+      // setMessages(messages?.map((msg) => {
+      //   if (msg.id === loading || lastUid) msg.message = ' ';
+      // }))
       console.log('Interval should be cleared!', loadInterval);
     }
   }, [loading]);
 
   useEffect(() => {
     if (fetched) {
-      console.log('Fetch set to a string!');
+      console.log('Fetch set to a string!', fetched);
       console.log('Setting loading false...');
       setLoading(false);
+
     }
     else setTyping(true);
   }, [fetched]);
 
   useEffect(() => {
     let i = 0, interval;
-    if (typing) { }
+    if (typing) {
+      setMessages(messages.map((msg) => {
+        console.log('MSG', msg);
+      }))
+     }
     else console.log('typing is false');
   }, [typing]);
 
@@ -103,7 +111,7 @@ const Messages = () => {
 
         {/* Messages Area */}
         <div id='chat_container' className='channel-feed__body'>
-          {messages.map((msg) => (
+          {messages?.map((msg) => (
             <Message key={msg.id} {...msg} />
           ))}
         </div>
