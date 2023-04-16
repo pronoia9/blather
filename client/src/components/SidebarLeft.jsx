@@ -1,12 +1,17 @@
+import { useState, useEffect } from 'react';
+
 import SidebarSection from './SidebarSection';
 import SidebarSectionItem from './SidebarSectionItem';
 
-const SidebarLeft = ({ tags, links, setMessages }) => {
+const SidebarLeft = ({ tags, links, messages, setMessages }) => {
+  const [pending, setPending] = useState(messages.length !== JSON.parse(localStorage.getItem('codexMessages')).length);
+
   const loadPreviousMessages = () => {
     const prev = localStorage.getItem('codexMessages');
     if (prev) setMessages(JSON.parse(prev));
-  }
-  
+    setPending(false);
+  };
+
   return (
     <div className='app-a'>
       <div className='segment-topbar'>
@@ -15,7 +20,9 @@ const SidebarLeft = ({ tags, links, setMessages }) => {
         </div>
         <div className='segment-topbar__aside'>
           <div className='button-toolbar'>
-            <a className='button button--primary button--size-lg' onClick={loadPreviousMessages}>
+            <a
+              className={`button button--primary button--size-lg${pending ? ' pending' : ''}`}
+              onClick={loadPreviousMessages}>
               <svg className='button__icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
                 <path d='M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z'></path>
               </svg>
@@ -53,9 +60,11 @@ const SidebarLeft = ({ tags, links, setMessages }) => {
         title='Links'
         children={
           links?.length &&
-          Object.values(JSON.parse(links.trim())).slice(4).map((link, i, links) => {
-            if (!(i % 2)) return <SidebarSectionItem type='link' url={links} title={links[i + 1]} key={links[i + 1]} />;
-          })
+          Object.values(JSON.parse(links.trim()))
+            .slice(4)
+            .map((link, i, links) => {
+              if (!(i % 2)) return <SidebarSectionItem type='link' url={links} title={links[i + 1]} key={links[i + 1]} />;
+            })
         }
       />
     </div>
