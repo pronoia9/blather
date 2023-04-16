@@ -30,7 +30,7 @@ const Messages = () => {
 
   const loader = () => {};
 
-  const typeText = () => { };
+  const typeText = () => {};
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -58,19 +58,24 @@ const Messages = () => {
     if (loading) {
       loadInterval.current = setInterval(() => {
         // To do the loading thing, have to set the whole messages again with an update to the message T_T
-        setMessages(messages.map((msg) => {
-          if (msg.id === lastUid.current) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
-          return msg;
-        }));
+        setMessages(
+          messages.map((msg) => {
+            if (msg.id === lastUid.current) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
+            return msg;
+          })
+        );
       }, 300);
       console.log('Interval set!', loadInterval);
     } else {
       console.log('Loading is now set to false!');
       console.log('Clearing interval...', loadInterval);
       clearInterval(loadInterval.current);
-      // setMessages(messages?.map((msg) => {
-      //   if (msg.id === loading || lastUid) msg.message = ' ';
-      // }))
+      if (messages.length) {
+        setMessages(messages?.map((msg) => {
+          if (msg.id === lastUid.current) msg.message = ''; // Reset any lingering .s on the no longer loading message
+          return msg;
+        }));
+      }
       console.log('Interval should be cleared!', loadInterval);
     }
   }, [loading]);
@@ -80,21 +85,14 @@ const Messages = () => {
       console.log('Fetch set to a string!', fetched);
       console.log('Setting loading false...');
       setLoading(false);
-
-    }
-    else setTyping(true);
+    } else setTyping(true);
   }, [fetched]);
 
   useEffect(() => {
     let i = 0, interval;
-    if (typing) {
-      setMessages(messages.map((msg) => {
-        console.log('MSG', msg);
-      }))
-     }
+    if (typing) { }
     else console.log('typing is false');
   }, [typing]);
-
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
@@ -111,9 +109,7 @@ const Messages = () => {
 
         {/* Messages Area */}
         <div id='chat_container' className='channel-feed__body'>
-          {messages?.map((msg) => (
-            <Message key={msg.id} {...msg} />
-          ))}
+          {messages?.map((msg) => <Message key={msg.id} {...msg} />)}
         </div>
 
         {/* Input / Send Message */}
