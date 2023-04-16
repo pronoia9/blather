@@ -2,6 +2,10 @@ import SidebarSection from './SidebarSection';
 import SidebarSectionItem from './SidebarSectionItem';
 
 const SidebarLeft = ({ tags, links }) => {
+  const loadPreviousMessages = () => {
+    console.log(JSON.parse(localStorage.getItem('codexMessages')));
+  }
+  
   return (
     <div className='app-a'>
       <div className='segment-topbar'>
@@ -10,7 +14,7 @@ const SidebarLeft = ({ tags, links }) => {
         </div>
         <div className='segment-topbar__aside'>
           <div className='button-toolbar'>
-            <a className='button button--primary button--size-lg'>
+            <a className='button button--primary button--size-lg' onClick={loadPreviousMessages}>
               <svg className='button__icon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
                 <path d='M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z'></path>
               </svg>
