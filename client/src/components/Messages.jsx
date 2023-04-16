@@ -24,7 +24,9 @@ const Messages = () => {
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
   const [fetched, setFetched] = useState(false);
-  let lastUid = useRef(), loadInterval = useRef(), typingInterval = useRef();
+  let lastUid = useRef(),
+    loadInterval = useRef(),
+    typingInterval = useRef();
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -50,7 +52,6 @@ const Messages = () => {
   useEffect(() => {
     if (loading) {
       loadInterval.current = setInterval(() => {
-        // To do the loading thing, have to set the whole messages again with an update to the message T_T
         setMessages(
           messages.map((msg) => {
             if (msg.id === lastUid.current) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
@@ -73,8 +74,8 @@ const Messages = () => {
 
   useEffect(() => {
     if (fetched) {
-      setLoading(false); // Disable loading and
-      setTyping(fetched); // start typing instead
+      setLoading(false); // Once fetched is set, stop loading the ...s
+      setTyping(fetched); // and start "typing" the fetched message instead
     }
   }, [fetched]);
 
