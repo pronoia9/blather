@@ -89,8 +89,8 @@ const Messages = () => {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
-  useEffect(() => { console.log(`[UE] loading state changed to ${loading}!`); } , [loading])
-  useEffect(() => { console.log(`[UE] typing state changed to ${typing}!`); } , [typing])
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading); } , [loading])
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing state changed  to`, typing); } , [typing])
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   return (
