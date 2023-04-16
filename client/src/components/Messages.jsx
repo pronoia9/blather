@@ -57,12 +57,11 @@ const Messages = () => {
   useEffect(() => {
     if (loading) {
       loadInterval.current = setInterval(() => {
-        setMessages(
-          messages.map((msg) => {
-            if (msg.id === loading) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
-            return msg;
-          })
-        );
+        // To do the loading thing, have to set the whole messages again with an update to the message T_T
+        setMessages(messages.map((msg) => {
+          if (msg.id === loading) msg.message.includes('...') ? (msg.message = ' ') : (msg.message += '.');
+          return msg;
+        }));
       }, 300);
       console.log('Interval set!', loadInterval);
     } else {
@@ -78,28 +77,22 @@ const Messages = () => {
       console.log('Fetch set to a string!');
       console.log('Setting loading false...');
       setLoading(false);
-    } else setTyping(true);
+    }
+    else setTyping(true);
   }, [fetched]);
 
   useEffect(() => {
-    let i = 0,
-      interval;
-    if (typing) {
-    } else console.log('typing is false');
+    let i = 0, interval;
+    if (typing) { }
+    else console.log('typing is false');
   }, [typing]);
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
-  useEffect(() => {
-    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading);
-  }, [loading]);
-  useEffect(() => {
-    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing);
-  }, [typing]);
-  useEffect(() => {
-    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched);
-  }, [fetched]);
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading); }, [loading]);
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing); }, [typing]);
+  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched); }, [fetched]);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
