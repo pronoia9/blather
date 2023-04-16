@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 import MessagesTopBar from './MessagesTopBar';
-import { generateUniqueId, getTimestamp, loader, typeText } from '../utils/utils';
+import { generateUniqueId, getTimestamp, } from '../utils/utils';
+import useInterval from '../hooks/useInterval';
 
 const Message = ({ id, message, from, time }) => {
   return (
@@ -23,7 +24,12 @@ const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [typing, setTyping] = useState(false);
-  let loadInterval;
+  const [fetched, setFetched] = useState(false);
+  let lastUniqueId = useRef(), loadInterval = useRef(), index = useRef();
+
+  const loader = () => { }
+  
+  const typeText = () => {}
 
   const addMessage = (id, from, message, time) => {
     setMessages((messages) => [...messages, { id, from, message, time }]);
@@ -31,68 +37,67 @@ const Messages = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!input.trim().length) return alert('You gotta type something you know...');
 
-    // Return if there's no input
-    if (!input.trim().length) {
-      alert('You gotta type something you know...');
-      return;
-    }
+    addMessage(generateUniqueId(), 'An Awesome User', input, getTimestamp(new Date())); // Add user's message
+    setInput(''); // Reset user input/textarea
 
-    // Add user's message
-    const userMessage = input;
-    addMessage(generateUniqueId(), 'An Awesome User', input, getTimestamp(new Date()));
-    // Reset user input/textarea
-    setInput('');
+    lastUniqueId = generateUniqueId(); // Save the bot's unique id
+    addMessage(lastUniqueId, 'Codex', ' ', ''); // Add empty message for bot
+    setLoading(lastUniqueId); // Set loading to bots id to useEffect and load the typing ...s
 
-    // Save the bot's unique id
-    const uniqueId = generateUniqueId();
-    // Add empty message for bot
-    addMessage(uniqueId, 'Codex', ' ', '');
-    // Set loading to bots id to useEffect and load the typing ...s
-    setLoading(uniqueId);
-
+    // Fetch AI's response
     setTimeout(() => {
-      const text = 'Lorem ipsum bla awe yoda.';
-      setLoading(false);
-      clearInterval(loadInterval);
-      setTyping(true);
+      setFetched("I can't be bothered to fetch and waste my OpenAI free plan...");
     }, 3000);
   };
 
   useEffect(() => {
-    // console.log('messages (UE)', messages);
-    // console.log('loading  (UE)', loading);
-    if (loading) {
-      // const msg = messages.find((msg) => msg.id == loading);
-      const idx = messages.findIndex((msg) => msg.id === loading);
-      // console.log('2nd UE', `[${idx}]`, messages[idx]);
-      // setMessages([...messages, { ...x, message: '...' }]);
-
+    // if (loading) {
       // Do the ... loading/typing for bot
-      loadInterval = setInterval(() => {
-        setMessages(
-          messages.map((msg) => {
-            if (msg.id === loading) {
-              msg.message += '.';
-              if (msg.message.includes('....')) msg.message = ' ';
-            }
-            return msg;
-          })
-        );
-      }, 300);
-    }
+      // loadInterval.current = setInterval(() => {
+      //   setMessages(
+      //     messages.map((msg) => {
+      //       if (msg.id === loading) {
+      //         msg.message += '.';
+      //         if (msg.message.includes('....')) msg.message = ' ';
+      //       }
+      //       return msg;
+      //     })
+      //   );
+      // }, 300);
+    // }
+    // else clearInterval(loadInterval.current);
   }, [loading]);
 
   useEffect(() => {
-    console.log();
-  }, [typing]);
+    // let i = 0, interval;
+    // if (typing) {
+    //   // stuff
+    //  }
+    // // else if (interval) clearInterval(interval);
+  }, [typing])
+
+  useEffect(() => {
+    if (fetched) {
+      lastUniqueId = loading; // save the bot's message's uid before changing loading
+      setLoading(false);
+    }
+  }, [fetched]);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // useEffect(() => { console.log('[UE] Messages updated!', messages); } , [messages])
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading); } , [loading])
-  useEffect(() => { console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing state changed  to`, typing); } , [typing])
+  useEffect(() => {
+    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Loading state changed to`, loading);
+  }, [loading]);
+  useEffect(() => {
+    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Typing  state changed to`, typing);
+  }, [typing]);
+  useEffect(() => {
+    console.log(`\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[UE] Fetched state changed to`, fetched);
+  }, [fetched]);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  
+
   return (
     <div className='app-main'>
       <div className='channel-feed'>
