@@ -528,6 +528,8 @@ textarea {
 
 .channel-feed__body {
   flex-grow: 1;
+  /* height: initial !important; */
+  /* overflow: scroll; */
 }
 
 .channel-feed__footer {
