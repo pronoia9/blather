@@ -44,13 +44,12 @@ const Messages = ({ messages, setMessages }) => {
 
     // Fetch AI's response
     try {
-      // const response = await axios.post(
-      //   import.meta.env.VITE_URL,
-      //   { prompt: lastInput || "I can't be bothered to fetch and waste my OpenAI free plan..." },
-      //   { headers: { 'Content-Type': 'application/json' } }
-      // );
-      // setFetched(response.data.bot.trim());
-      setFetched("I can't be bothered to fetch and waste my OpenAI free plan...");
+      const response = await axios.post(
+        import.meta.env.VITE_URL,
+        { prompt: lastInput || "I can't be bothered to fetch and waste my OpenAI free plan..." },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      setFetched(response.data.bot.trim());
     } catch (error) {
       console.error(error);
       alert('There was an error getting a response from OpenAI.');
