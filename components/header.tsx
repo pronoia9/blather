@@ -20,7 +20,7 @@ export function Header() {
         </React.Suspense>
       </div>
       <div className="flex items-center justify-end space-x-2">
-        {socialLinks.map((_, i) => _)}
+        {socialLinks.map((_) => _)}
       </div>
     </header>
   )
