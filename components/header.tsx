@@ -1,15 +1,15 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
 import { auth } from '@/auth'
-import { Button, buttonVariants } from '@/components/ui'
-import { IconGitHub, IconNextChat, IconSeparator, IconVercel } from '@/components/ui'
+import { Button } from '@/components/ui'
+import { IconNextChat, IconSeparator } from '@/components/ui'
 import { UserMenu } from '@/components/user-menu'
 import { SidebarMobile } from './sidebar-mobile'
 import { SidebarToggle } from './sidebar-toggle'
 import { ChatHistory } from './chat-history'
 import { Session } from '@/lib/types'
+import { socialLinks } from '@/data'
 
 export function Header() {
   return (
@@ -20,10 +20,7 @@ export function Header() {
         </React.Suspense>
       </div>
       <div className="flex items-center justify-end space-x-2">
-        <a target="_blank" href="https://github.com/pronoia9" rel="noopener noreferrer" className={cn(buttonVariants({ variant: 'outline' }))}>
-          <IconGitHub />
-          <span className="hidden ml-2 md:flex">GitHub</span>
-        </a>
+        {socialLinks.map((_, i) => _)}
       </div>
     </header>
   )
