@@ -4,7 +4,7 @@ module.exports = {
   semi: false,
   useTabs: false,
   singleQuote: true,
-  // arrowParens: 'avoid',
+  arrowParens: 'avoid',
   tabWidth: 2,
   trailingComma: 'none',
   importOrder: [
