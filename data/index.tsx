@@ -35,3 +35,10 @@ export const exampleMessages = [
     message: `What are some recent events about $DOGE?`
   }
 ]
+
+export const footerMessage = (
+  <>
+    Open source AI chatbot built with <ExternalLink href="https://nextjs.org">Next.js</ExternalLink> and{' '}
+    <ExternalLink href="https://github.com/vercel/ai">Vercel AI SDK</ExternalLink>.
+  </>
+)
