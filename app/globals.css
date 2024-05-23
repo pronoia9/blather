@@ -87,8 +87,8 @@
   animation-duration: 200ms;
 }
 
-.gradient-border:hover,
-.gradient-outline:hover {
+.gradient-outline,
+.gradient-border:hover {
   border-color: transparent;
   background:
     linear-gradient(rgb(16, 22, 34), rgb(16, 22, 34)) padding-box padding-box,

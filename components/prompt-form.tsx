@@ -91,7 +91,7 @@ export function PromptForm({ input, setInput }: { input: string; setInput: (valu
         <div className="absolute right-0 top-[13px] sm:right-4">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button type="submit" size="icon" disabled={input === ''}>
+              <Button variant={input === '' ? 'gradient-outline' : 'gradient'} type="submit" size="icon" disabled={input === ''}>
                 <IconArrowElbow />
                 <span className="sr-only">Send message</span>
               </Button>
