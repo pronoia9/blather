@@ -1,8 +1,8 @@
 import { UseChatHelpers } from 'ai/react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { ExternalLink } from '@/components/external-link'
-import { IconArrowRight } from '@/components/ui/icons'
+import { IconArrowRight } from '@/components/ui'
 
 export function EmptyScreen() {
   return (

@@ -3,13 +3,13 @@ import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 import { auth } from '@/auth'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui'
 import {
   IconGitHub,
   IconNextChat,
   IconSeparator,
   IconVercel
-} from '@/components/ui/icons'
+} from '@/components/ui'
 import { UserMenu } from '@/components/user-menu'
 import { SidebarMobile } from './sidebar-mobile'
 import { SidebarToggle } from './sidebar-toggle'

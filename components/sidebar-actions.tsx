@@ -14,15 +14,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-import { IconShare, IconSpinner, IconTrash } from '@/components/ui/icons'
+} from '@/components/ui'
+import { Button } from '@/components/ui'
+import { IconShare, IconSpinner, IconTrash } from '@/components/ui'
 import { ChatShareDialog } from '@/components/chat-share-dialog'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
-} from '@/components/ui/tooltip'
+} from '@/components/ui'
 
 interface SidebarActionsProps {
   chat: Chat
