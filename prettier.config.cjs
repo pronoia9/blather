@@ -4,7 +4,7 @@ module.exports = {
   semi: false,
   useTabs: false,
   singleQuote: true,
-  arrowParens: 'avoid',
+  // arrowParens: 'avoid',
   tabWidth: 2,
   trailingComma: 'none',
   importOrder: [
@@ -30,5 +30,6 @@ module.exports = {
   importOrderBuiltinModulesToTop: true,
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
   importOrderMergeDuplicateImports: true,
-  importOrderCombineTypeAndValueImports: true
+  importOrderCombineTypeAndValueImports: true,
+  printWidth: 150,
 }
