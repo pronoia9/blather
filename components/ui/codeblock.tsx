@@ -64,10 +64,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
       return
     }
     const fileExtension = programmingLanguages[language] || '.file'
-    const suggestedFileName = `file-${generateRandomString(
-      3,
-      true
-    )}${fileExtension}`
+    const suggestedFileName = `file-${generateRandomString(3, true)}${fileExtension}`
     const fileName = window.prompt('Enter file name' || '', suggestedFileName)
 
     if (!fileName) {
@@ -93,13 +90,13 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
   }
 
   return (
-    <div className="relative w-full font-sans codeblock bg-slate-950">
-      <div className="flex items-center justify-between w-full px-6 py-2 pr-4 bg-slate-800 text-zinc-100">
+    <div className="relative w-full font-sans codeblock bg-slate-700 dark:bg-slate-900">
+      <div className="flex items-center justify-between w-full px-6 py-2 pr-4 bg-slate-600 dark:bg-slate-800 text-zinc-300 dark:text-zinc-100">
         <span className="text-xs lowercase">{language}</span>
         <div className="flex items-center space-x-1">
           <Button
             variant="ghost"
-            className="hover:bg-slate-800 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0"
+            className="hover:bg-slate-600 dark:[hover:bg-slate-800] focus-visible:ring-1 focus-visible:ring-slate-500 dark:[focus-visible:ring-slate-700] focus-visible:ring-offset-0"
             onClick={downloadAsFile}
             size="icon"
           >
@@ -109,7 +106,7 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
           <Button
             variant="ghost"
             size="icon"
-            className="text-xs hover:bg-slate-800 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0"
+            className="text-xs hover:bg-slate-600 dark:[hover:bg-slate-800] focus-visible:ring-1 focus-visible:ring-slate-500 dark:[focus-visible:ring-slate-700] focus-visible:ring-offset-0"
             onClick={onCopy}
           >
             {isCopied ? <IconCheck /> : <IconCopy />}
