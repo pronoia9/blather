@@ -1,5 +1,5 @@
 import { ExternalLink } from '@/components/external-link'
-import { IconGitHub, buttonVariants } from '@/components/ui'
+import { IconGitHub, IconVercel, buttonVariants } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 // HEADER
@@ -9,6 +9,12 @@ export const socialLinks = [
     link: 'https://github.com/pronoia9',
     style: `${cn(buttonVariants({ variant: 'gradient-outline' }))} hover:gradient-clr`,
     icon: <IconGitHub />
+  },
+  {
+    title: 'Portfolio',
+    link: 'https://ansin.dev',
+    style: `${cn(buttonVariants({ variant: 'gradient' }))} border border-input hover:gradient-outline`,
+    icon: <IconVercel />
   }
 ]
 
