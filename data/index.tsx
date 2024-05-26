@@ -1,10 +1,29 @@
 import { ExternalLink } from '@/components/external-link'
+import { IconGitHub, buttonVariants } from '@/components/ui'
+import { cn } from '@/lib/utils'
 
+// HEADER
+export const socialLinks = [
+  <a
+    key="socials-github"
+    href="https://github.com/pronoia9"
+    target="_blank"
+    rel="noopener noreferrer"
+    className={`${cn(buttonVariants({ variant: 'gradient-outline' }))} hover:gradient-clr`}
+  >
+    <IconGitHub />
+    <span className="ml-2 flex sm:hidden">GitHub</span>
+  </a>
+]
+
+// CHAT SECTION
 export const welcomeMessage = {
   title: 'Welcome to Blather AI chatbot!',
   subtitles: [
     <>
-      This is an open source AI chatbot app template built with <ExternalLink href="https://nextjs.org">Next.js</ExternalLink>, the <ExternalLink href="https://sdk.vercel.ai">Vercel AI SDK</ExternalLink>, and <ExternalLink href="https://vercel.com/storage/kv">Vercel KV</ExternalLink>.
+      This is an open source AI chatbot app template built with <ExternalLink href="https://nextjs.org">Next.js</ExternalLink>, the{' '}
+      <ExternalLink href="https://sdk.vercel.ai">Vercel AI SDK</ExternalLink>, and{' '}
+      <ExternalLink href="https://vercel.com/storage/kv">Vercel KV</ExternalLink>.
     </>,
     <>
       It uses <ExternalLink href="https://vercel.com/blog/ai-sdk-3-generative-ui">React Server Components</ExternalLink> to combine text with
