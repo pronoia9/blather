@@ -120,3 +120,8 @@
   border-color: hsl(var(--input));
   @apply gradient-clr;
 }
+
+.hover\:gradient-outline:hover {
+  @apply bg-background shadow-sm hover:bg-accent hover:text-accent-foreground;
+  @apply gradient-outline;
+}
