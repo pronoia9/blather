@@ -38,11 +38,9 @@ export function ChatPanel({ id, title, input, setInput, isAtBottom, scrollToBott
             exampleMessages.map((example, index) => (
               <div
                 key={example.heading}
-                className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 ${
-                  index > 1 && 'hidden md:block'
-                }`}
+                className={`cursor-pointer rounded-lg border p-4 gradient-fg hover:brightness-125 ${index > 1 && 'hidden md:block'}`}
                 onClick={async () => {
-                  setMessages((currentMessages) => [
+                  setMessages(currentMessages => [
                     ...currentMessages,
                     {
                       id: nanoid(),
@@ -52,7 +50,7 @@ export function ChatPanel({ id, title, input, setInput, isAtBottom, scrollToBott
 
                   const responseMessage = await submitUserMessage(example.message)
 
-                  setMessages((currentMessages) => [...currentMessages, responseMessage])
+                  setMessages(currentMessages => [...currentMessages, responseMessage])
                 }}
               >
                 <div className="text-sm font-semibold">{example.heading}</div>
