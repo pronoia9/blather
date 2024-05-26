@@ -115,3 +115,7 @@
     var(--gradient-color) border-box border-box;
   box-shadow: var(--gradient-outline-shadow);
 }
+
+.hover\:gradient-clr:hover {
+  @apply gradient-clr;
+}
