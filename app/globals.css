@@ -117,5 +117,6 @@
 }
 
 .hover\:gradient-clr:hover {
+  border-color: hsl(var(--input));
   @apply gradient-clr;
 }
