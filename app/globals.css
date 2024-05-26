@@ -7,6 +7,9 @@
     --background: 0 0% 100%;
     --foreground: 223, 37%, 4%;
 
+    --gradient-background: linear-gradient(112deg, rgb(250, 252, 253) 0%, rgb(240, 244, 248) 100%);
+    --gradient-foreground: linear-gradient(90deg, rgb(242, 246, 249) 0%, rgb(227, 234, 242) 100%);
+
     --card: 0 0% 100%;
     --card-foreground: 223, 37%, 4%;
 
@@ -25,6 +28,12 @@
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 228, 8%, 12%;
 
+    --gradient-color: linear-gradient(81.02deg, rgb(255, 182, 193) -23.47%, rgb(218, 174, 238) 45.52%, rgb(173, 216, 230) 114.8%);
+
+    --gradient-color-shadow: rgba(161, 128, 255, 0.6) 0px 0px calc(1rem) 0px;
+    --gradient-outline-background: linear-gradient(rgb(221, 233, 239), rgb(221, 234, 239));
+    --gradient-outline-shadow: rgba(145, 0, 255, 0.3) 0px 0px 0.5rem;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
@@ -33,25 +42,14 @@
     --ring: 223, 37%, 4%;
 
     --radius: 0.5rem;
-
-    --gradient-background: linear-gradient(112deg, rgb(250, 252, 253) 0%, rgb(240, 244, 248) 100%);
-    --gradient-foreground: linear-gradient(90deg, rgb(242, 246, 249) 0%, rgb(227, 234, 242) 100%);
-    --gradient-color: linear-gradient(81.02deg, rgb(255, 182, 193) -23.47%, rgb(218, 174, 238) 45.52%, rgb(173, 216, 230) 114.8%);
-    --gradient-color-shadow: rgba(161, 128, 255, 0.6) 0px 0px calc(1rem) 0px;
-    --gradient-outline-background: linear-gradient(rgb(221, 233, 239), rgb(221, 234, 239));
-    --gradient-outline-shadow: rgba(145, 0, 255, 0.3) 0px 0px 0.5rem;
   }
 
   .dark {
-    --gradient-background: linear-gradient(112deg, rgb(2, 3, 5) 0%, rgb(7, 10, 15) 100%);
-    --gradient-foreground: linear-gradient(90deg, rgb(6, 8, 13) 0%, rgb(13, 18, 28) 100%);
-    --gradient-color: linear-gradient(81.02deg, rgb(250, 85, 96) -23.47%, rgb(177, 75, 244) 45.52%, rgb(77, 145, 255) 114.8%);
-    --gradient-color-shadow: rgba(161, 128, 255, 0.6) 0px 0px calc(1rem) 0px;
-    --gradient-outline-background: linear-gradient(rgb(16, 22, 34), rgb(16, 22, 34));
-    --gradient-outline-shadow: rgba(145, 0, 255, 0.6) 0px 0px 1rem;
-
     --background: 223, 37%, 4%;
     --foreground: 0 0% 98%;
+
+    --gradient-background: linear-gradient(112deg, rgb(2, 3, 5) 0%, rgb(7, 10, 15) 100%);
+    --gradient-foreground: linear-gradient(90deg, rgb(6, 8, 13) 0%, rgb(13, 18, 28) 100%);
 
     --card: 223, 37%, 4%;
     --card-foreground: 0 0% 98%;
@@ -70,6 +68,11 @@
 
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
+
+    --gradient-color: linear-gradient(81.02deg, rgb(250, 85, 96) -23.47%, rgb(177, 75, 244) 45.52%, rgb(77, 145, 255) 114.8%);
+
+    --gradient-outline-background: linear-gradient(rgb(16, 22, 34), rgb(16, 22, 34));
+    --gradient-outline-shadow: rgba(145, 0, 255, 0.6) 0px 0px 1rem;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
