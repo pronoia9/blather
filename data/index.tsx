@@ -4,16 +4,12 @@ import { cn } from '@/lib/utils'
 
 // HEADER
 export const socialLinks = [
-  <a
-    key="socials-github"
-    href="https://github.com/pronoia9"
-    target="_blank"
-    rel="noopener noreferrer"
-    className={`${cn(buttonVariants({ variant: 'gradient-outline' }))} hover:gradient-clr`}
-  >
-    <IconGitHub />
-    <span className="ml-2 flex sm:hidden">GitHub</span>
-  </a>
+  {
+    title: 'GitHub',
+    link: 'https://github.com/pronoia9',
+    style: `${cn(buttonVariants({ variant: 'gradient-outline' }))} hover:gradient-clr`,
+    icon: <IconGitHub />
+  }
 ]
 
 // CHAT SECTION

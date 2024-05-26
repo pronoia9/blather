@@ -2,7 +2,7 @@ import * as React from 'react'
 import Link from 'next/link'
 
 import { auth } from '@/auth'
-import { Button } from '@/components/ui'
+import { Button, buttonVariants } from '@/components/ui'
 import { IconNextChat, IconSeparator } from '@/components/ui'
 import { UserMenu } from '@/components/user-menu'
 import { SidebarMobile } from './sidebar-mobile'
@@ -10,6 +10,7 @@ import { SidebarToggle } from './sidebar-toggle'
 import { ChatHistory } from './chat-history'
 import { Session } from '@/lib/types'
 import { socialLinks } from '@/data'
+import { cn } from '@/lib/utils'
 
 export function Header() {
   return (
@@ -20,7 +21,12 @@ export function Header() {
         </React.Suspense>
       </div>
       <div className="flex items-center justify-end space-x-2">
-        {socialLinks.map((_) => _)}
+        {socialLinks.map(({ title, link, style, icon, ...props }) => (
+          <a key={`socials-${title}`} href={link} target="_blank" rel="noopener noreferrer" className={style} {...props}>
+            {icon}
+            <span className="hidden ml-2 md:flex">{title}</span>
+          </a>
+        ))}
       </div>
     </header>
   )
