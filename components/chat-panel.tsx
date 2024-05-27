@@ -38,7 +38,7 @@ export function ChatPanel({ id, title, input, setInput, isAtBottom, scrollToBott
             exampleMessages.map((example, index) => (
               <div
                 key={example.heading}
-                className={`cursor-pointer rounded-lg border p-4 bg-background hover:brightness-125 ${index > 1 && 'hidden md:block'}`}
+                className={`cursor-pointer rounded-lg border p-4 bg-background gradient-border-bg hover:brightness-125 ${index > 1 && 'hidden md:block'}`}
                 onClick={async () => {
                   setMessages(currentMessages => [
                     ...currentMessages,
