@@ -7,7 +7,7 @@ export const socialLinks = [
   {
     title: 'GitHub',
     link: 'https://github.com/pronoia9',
-    style: `${cn(buttonVariants({ variant: 'gradient-outline' }))} hover:gradient-clr`,
+    style: `${cn(buttonVariants({ variant: 'outline' }))} gradient-border`,
     icon: <IconGitHub />
   },
   {
