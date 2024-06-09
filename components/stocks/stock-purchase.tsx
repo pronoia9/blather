@@ -60,10 +60,8 @@ export function Purchase({
   }
 
   return (
-    <div className="p-4 text-green-400 border rounded-xl bg-slate-950">
-      <div className="inline-block float-right px-2 py-1 text-xs rounded-full bg-white/10">
-        +1.23% ↑
-      </div>
+    <div className="p-4 text-green-400 border rounded-xl gradient-fg">
+      <div className="inline-block float-right px-2 py-1 text-xs rounded-full bg-white/10">+1.23% ↑</div>
       <div className="text-lg text-zinc-300">{symbol}</div>
       <div className="text-3xl font-bold">${price}</div>
       {purchasingUI ? (
@@ -81,18 +79,10 @@ export function Purchase({
               max="1000"
               className="w-full h-1 rounded-lg appearance-none cursor-pointer bg-slate-600 accent-green-500 dark:bg-slate-700"
             />
-            <span className="absolute text-xs bottom-1 start-0 text-zinc-400">
-              10
-            </span>
-            <span className="absolute text-xs -translate-x-1/2 bottom-1 start-1/3 text-zinc-400 rtl:translate-x-1/2">
-              100
-            </span>
-            <span className="absolute text-xs -translate-x-1/2 bottom-1 start-2/3 text-zinc-400 rtl:translate-x-1/2">
-              500
-            </span>
-            <span className="absolute text-xs bottom-1 end-0 text-zinc-400">
-              1000
-            </span>
+            <span className="absolute text-xs bottom-1 start-0 text-zinc-400">10</span>
+            <span className="absolute text-xs -translate-x-1/2 bottom-1 start-1/3 text-zinc-400 rtl:translate-x-1/2">100</span>
+            <span className="absolute text-xs -translate-x-1/2 bottom-1 start-2/3 text-zinc-400 rtl:translate-x-1/2">500</span>
+            <span className="absolute text-xs bottom-1 end-0 text-zinc-400">1000</span>
           </div>
 
           <div className="mt-6">
@@ -100,16 +90,12 @@ export function Purchase({
             <div className="flex flex-wrap items-center text-xl font-bold sm:items-end sm:gap-2 sm:text-3xl">
               <div className="flex flex-col basis-1/3 tabular-nums sm:basis-auto sm:flex-row sm:items-center sm:gap-2">
                 {value}
-                <span className="mb-1 text-sm font-normal text-zinc-600 sm:mb-0 dark:text-zinc-400">
-                  shares
-                </span>
+                <span className="mb-1 text-sm font-normal text-zinc-600 sm:mb-0 dark:text-zinc-400">shares</span>
               </div>
               <div className="text-center basis-1/3 sm:basis-auto">×</div>
               <span className="flex flex-col basis-1/3 tabular-nums sm:basis-auto sm:flex-row sm:items-center sm:gap-2">
                 ${price}
-                <span className="mb-1 ml-1 text-sm font-normal text-zinc-600 sm:mb-0 dark:text-zinc-400">
-                  per share
-                </span>
+                <span className="mb-1 ml-1 text-sm font-normal text-zinc-600 sm:mb-0 dark:text-zinc-400">per share</span>
               </span>
               <div className="pt-2 mt-2 text-center border-t basis-full border-t-zinc-700 sm:mt-0 sm:basis-auto sm:border-0 sm:pt-0 sm:text-left">
                 = <span>{formatNumber(value * price)}</span>
@@ -124,10 +110,7 @@ export function Purchase({
               setPurchasingUI(response.purchasingUI)
 
               // Insert a new system message to the UI.
-              setMessages((currentMessages: any) => [
-                ...currentMessages,
-                response.newMessage
-              ])
+              setMessages((currentMessages: any) => [...currentMessages, response.newMessage])
             }}
           >
             Purchase
@@ -135,8 +118,7 @@ export function Purchase({
         </>
       ) : status === 'completed' ? (
         <p className="mb-2 text-white">
-          You have successfully purchased {value} ${symbol}. Total cost:{' '}
-          {formatNumber(value * price)}
+          You have successfully purchased {value} ${symbol}. Total cost: {formatNumber(value * price)}
         </p>
       ) : status === 'expired' ? (
         <p className="mb-2 text-white">Your checkout session has expired!</p>

@@ -56,10 +56,7 @@ export function SidebarItem({ index, chat, children }: SidebarItemProps) {
       <div className="absolute left-2 top-1 flex size-6 items-center justify-center">
         {chat.sharePath ? (
           <Tooltip delayDuration={1000}>
-            <TooltipTrigger
-              tabIndex={-1}
-              className="focus:bg-muted focus:ring-1 focus:ring-ring"
-            >
+            <TooltipTrigger tabIndex={-1} className="focus:gradient-bg focus:ring-1 focus:ring-ring">
               <IconUsers className="mr-2 mt-1 text-zinc-500" />
             </TooltipTrigger>
             <TooltipContent>This is a shared chat.</TooltipContent>
@@ -76,10 +73,7 @@ export function SidebarItem({ index, chat, children }: SidebarItemProps) {
           isActive && 'bg-slate-200 pr-16 font-semibold dark:bg-slate-800'
         )}
       >
-        <div
-          className="relative max-h-5 flex-1 select-none overflow-hidden text-ellipsis break-all"
-          title={chat.title}
-        >
+        <div className="relative max-h-5 flex-1 select-none overflow-hidden text-ellipsis break-all" title={chat.title}>
           <span className="whitespace-nowrap">
             {shouldAnimate ? (
               chat.title.split('').map((character, index) => (
