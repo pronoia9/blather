@@ -58,27 +58,14 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
 
   return (
     <div
-      className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]"
+      className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px] gradient-bg"
       ref={scrollRef}
     >
-      <div
-        className={cn('pb-[200px] pt-4 md:pt-10', className)}
-        ref={messagesRef}
-      >
-        {messages.length ? (
-          <ChatList messages={messages} isShared={false} session={session} />
-        ) : (
-          <EmptyScreen />
-        )}
+      <div className={cn('pb-[200px] pt-4 md:pt-10', className)} ref={messagesRef}>
+        {messages.length ? <ChatList messages={messages} isShared={false} session={session} /> : <EmptyScreen />}
         <div className="w-full h-px" ref={visibilityRef} />
       </div>
-      <ChatPanel
-        id={id}
-        input={input}
-        setInput={setInput}
-        isAtBottom={isAtBottom}
-        scrollToBottom={scrollToBottom}
-      />
+      <ChatPanel id={id} input={input} setInput={setInput} isAtBottom={isAtBottom} scrollToBottom={scrollToBottom} />
     </div>
   )
 }

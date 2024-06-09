@@ -7,13 +7,13 @@ import { usePathname } from 'next/navigation'
 
 import { motion } from 'framer-motion'
 
-import { buttonVariants } from '@/components/ui/button'
-import { IconMessage, IconUsers } from '@/components/ui/icons'
+import { buttonVariants } from '@/components/ui'
+import { IconMessage, IconUsers } from '@/components/ui'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
-} from '@/components/ui/tooltip'
+} from '@/components/ui'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
 import { type Chat } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -56,10 +56,7 @@ export function SidebarItem({ index, chat, children }: SidebarItemProps) {
       <div className="absolute left-2 top-1 flex size-6 items-center justify-center">
         {chat.sharePath ? (
           <Tooltip delayDuration={1000}>
-            <TooltipTrigger
-              tabIndex={-1}
-              className="focus:bg-muted focus:ring-1 focus:ring-ring"
-            >
+            <TooltipTrigger tabIndex={-1} className="focus:gradient-bg focus:ring-1 focus:ring-ring">
               <IconUsers className="mr-2 mt-1 text-zinc-500" />
             </TooltipTrigger>
             <TooltipContent>This is a shared chat.</TooltipContent>
@@ -72,14 +69,11 @@ export function SidebarItem({ index, chat, children }: SidebarItemProps) {
         href={chat.path}
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          'group w-full px-8 transition-colors hover:bg-zinc-200/40 dark:hover:bg-zinc-300/10',
-          isActive && 'bg-zinc-200 pr-16 font-semibold dark:bg-zinc-800'
+          'group w-full px-8 transition-colors hover:bg-slate-200/40 dark:hover:bg-slate-300/10',
+          isActive && 'bg-slate-200 pr-16 font-semibold dark:bg-slate-800'
         )}
       >
-        <div
-          className="relative max-h-5 flex-1 select-none overflow-hidden text-ellipsis break-all"
-          title={chat.title}
-        >
+        <div className="relative max-h-5 flex-1 select-none overflow-hidden text-ellipsis break-all" title={chat.title}>
           <span className="whitespace-nowrap">
             {shouldAnimate ? (
               chat.title.split('').map((character, index) => (

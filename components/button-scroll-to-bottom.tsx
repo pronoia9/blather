@@ -3,20 +3,15 @@
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
-import { Button, type ButtonProps } from '@/components/ui/button'
-import { IconArrowDown } from '@/components/ui/icons'
+import { Button, type ButtonProps } from '@/components/ui'
+import { IconArrowDown } from '@/components/ui'
 
 interface ButtonScrollToBottomProps extends ButtonProps {
   isAtBottom: boolean
   scrollToBottom: () => void
 }
 
-export function ButtonScrollToBottom({
-  className,
-  isAtBottom,
-  scrollToBottom,
-  ...props
-}: ButtonScrollToBottomProps) {
+export const ButtonScrollToBottom = ({ className, isAtBottom, scrollToBottom, ...props }: ButtonScrollToBottomProps) => {
   return (
     <Button
       variant="outline"

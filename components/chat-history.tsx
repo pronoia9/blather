@@ -4,8 +4,8 @@ import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 import { SidebarList } from '@/components/sidebar-list'
-import { buttonVariants } from '@/components/ui/button'
-import { IconPlus } from '@/components/ui/icons'
+import { buttonVariants } from '@/components/ui'
+import { IconPlus } from '@/components/ui'
 
 interface ChatHistoryProps {
   userId?: string
@@ -21,8 +21,8 @@ export async function ChatHistory({ userId }: ChatHistoryProps) {
         <Link
           href="/"
           className={cn(
-            buttonVariants({ variant: 'outline' }),
-            'h-10 w-full justify-start bg-zinc-50 px-4 shadow-none transition-colors hover:bg-zinc-200/40 dark:bg-zinc-900 dark:hover:bg-zinc-300/10'
+            buttonVariants({ variant: 'gradient' }),
+            'h-10 w-full justify-start bg-slate-50 px-4 shadow-none transition-colors hover:bg-slate-200/40 dark:bg-slate-900 dark:hover:bg-slate-300/10'
           )}
         >
           <IconPlus className="-translate-x-2 stroke-2" />
@@ -33,10 +33,7 @@ export async function ChatHistory({ userId }: ChatHistoryProps) {
         fallback={
           <div className="flex flex-col flex-1 px-4 space-y-4 overflow-auto">
             {Array.from({ length: 10 }).map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-6 rounded-md shrink-0 animate-pulse bg-zinc-200 dark:bg-zinc-800"
-              />
+              <div key={i} className="w-full h-6 rounded-md shrink-0 animate-pulse bg-slate-200 dark:bg-slate-800" />
             ))}
           </div>
         }

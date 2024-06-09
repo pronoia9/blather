@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { ServerActionResult } from '@/lib/types'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,8 +16,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '@/components/ui/alert-dialog'
-import { IconSpinner } from '@/components/ui/icons'
+} from '@/components/ui'
+import { IconSpinner } from '@/components/ui'
 
 interface ClearHistoryProps {
   isEnabled: boolean
