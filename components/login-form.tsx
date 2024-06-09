@@ -61,6 +61,12 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
+        {/* 
+        // TODO: implement reset password
+        */}
+        <Link href="#" className="flex flex-row gap-1 text-sm text-zinc-400 pt-4">
+          Trouble logging in? <div className="font-semibold underline">Reset password</div>
+        </Link>
         <LoginButton />
       </div>
 
