@@ -10,6 +10,7 @@ import { SidebarToggle } from './sidebar-toggle'
 import { ChatHistory } from './chat-history'
 import { Session } from '@/lib/types'
 import { socialLinks } from '@/data'
+import { ThemeToggle } from './theme-toggle'
 
 export function Header() {
   return (
@@ -43,11 +44,16 @@ async function UserOrLogin() {
           <SidebarToggle />
         </>
       ) : (
-        <Link href="/new" rel="nofollow">
-          <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
-          <IconNextChat className="hidden size-6 mr-2 dark:block" />
-        </Link>
+        // TODO: Decide whether or not to use this
+        <>
+          <ThemeToggle />
+          {/* <Link href="/new" rel="nofollow">
+            <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
+            <IconNextChat className="hidden size-6 mr-2 dark:block" />
+          </Link> */}
+        </>
       )}
+
       <div className="flex items-center">
         <IconSeparator className="size-6 text-muted-foreground/50" />
         {session?.user ? (
